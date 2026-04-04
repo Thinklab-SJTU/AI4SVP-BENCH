@@ -1,0 +1,13 @@
+{
+  "algorithm": "potLLL",
+  "dimension": 50,
+  "seed": 0,
+  "timestamp": "2026-02-01T23:14:23.784952",
+  "best_params": {
+    "delta": 0.6247113328131503
+  },
+  "best_time": 0.010470151901245117,
+  "best_norm": 1908.0387836729105,
+  "best_objective": 0.14362381415713937,
+  "total_evaluations": 40
+}

@@ -1,0 +1,13 @@
+{
+  "algorithm": "LLL",
+  "dimension": 80,
+  "seed": 0,
+  "timestamp": "2026-02-02T19:12:15.735989",
+  "best_params": {
+    "delta": 0.9876425266265869
+  },
+  "best_time": 0.008238077163696289,
+  "best_norm": 4571.5785020056255,
+  "best_objective": 0.5,
+  "total_evaluations": 40
+}

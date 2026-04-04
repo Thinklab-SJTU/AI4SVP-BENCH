@@ -1,0 +1,13 @@
+{
+  "algorithm": "fplll_self_dual_BKZ",
+  "dimension": 40,
+  "seed": 0,
+  "timestamp": "2026-02-05T16:54:53.961621",
+  "best_params": {
+    "beta": 18
+  },
+  "best_time": 0.05968070030212402,
+  "best_norm": 1709.173484465518,
+  "best_objective": 0.02605268752146256,
+  "total_evaluations": 40
+}

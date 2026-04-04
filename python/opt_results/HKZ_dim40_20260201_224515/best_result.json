@@ -1,0 +1,13 @@
+{
+  "algorithm": "HKZ",
+  "dimension": 40,
+  "seed": 0,
+  "timestamp": "2026-02-01T22:48:54.309338",
+  "best_params": {
+    "delta": 0.9998148881352273
+  },
+  "best_time": 2.023024559020996,
+  "best_norm": 1702.464390229646,
+  "best_objective": 0.0,
+  "total_evaluations": 40
+}

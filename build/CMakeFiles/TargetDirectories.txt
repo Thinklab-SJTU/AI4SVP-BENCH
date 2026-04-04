@@ -1,0 +1,10 @@
+/home/ma-user/modelarts/user-job-dir/liblat_step/build/CMakeFiles/lat_core.dir
+/home/ma-user/modelarts/user-job-dir/liblat_step/build/CMakeFiles/lattice_env.dir
+/home/ma-user/modelarts/user-job-dir/liblat_step/build/CMakeFiles/test_exec.dir
+/home/ma-user/modelarts/user-job-dir/liblat_step/build/CMakeFiles/test.dir
+/home/ma-user/modelarts/user-job-dir/liblat_step/build/CMakeFiles/edit_cache.dir
+/home/ma-user/modelarts/user-job-dir/liblat_step/build/CMakeFiles/rebuild_cache.dir
+/home/ma-user/modelarts/user-job-dir/liblat_step/build/CMakeFiles/list_install_components.dir
+/home/ma-user/modelarts/user-job-dir/liblat_step/build/CMakeFiles/install.dir
+/home/ma-user/modelarts/user-job-dir/liblat_step/build/CMakeFiles/install/local.dir
+/home/ma-user/modelarts/user-job-dir/liblat_step/build/CMakeFiles/install/strip.dir

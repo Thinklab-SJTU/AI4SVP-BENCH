@@ -1,0 +1,179 @@
+<html>
+
+<head>
+    <title>liblat　関数レファレンスページ</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/dracula.min.css">
+    <style>
+        @import url(style.css);
+    </style>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1 style="text-align:center">
+            liblat　関数レファレンスページ
+        </h1>
+    </header>
+
+    <h2>
+        その他格子の設定に関する関数
+    </h2>
+    <table>
+        <tr>
+            <th style="width:60px;"><a name="GoldesteinMayer">宣言</a></th>
+            <td style="color: yellow;">void setGoldesteinMayerLattice(const T p, const T q);</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">概略</th>
+            <td>
+                Goldestein-Mayer格子に設定する
+            </td>
+        </tr>
+        <tr>
+            <th style="width:60px;">引数</th>
+            <td>
+                <table>
+                    <tr>
+                        <td><code>p</code></td>
+                        <td>：</td>
+                        <td>第一基底ベクトルの第一成分の値</td>
+                    </tr>
+                    <tr>
+                        <td><code>q</code></td>
+                        <td>：</td>
+                        <td>第二基底ベクトル以降の第一成分の値</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <th style="width: 40px;">戻り値</th>
+            <td>なし</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">解説</th>
+            <td>
+                第一基底ベクトルの第一成分の値がp，それ以降の基底ベクトルの第一成分がqであるようなGoldestein-Mayer格子に設定する関数です．
+                また，Goldestein-Mayer格子とは，その格子基底行列が
+                \[
+                \begin{pmatrix}
+                p & 0 & \cdots & 0\\
+                q & 1 & \cdots & 0\\
+                \vdots & \vdots & \ddots & \vdots\\
+                q & 0 & \cdots & 1
+                \end{pmatrix}
+                \]
+                であるような格子のことを言います．
+            </td>
+        </tr>
+    </table>
+    <h3>サンプル</h3>
+    <pre class="code_block"><code>#include &lt;iostream&gt;
+#include "lattice.h"
+
+int main()
+{
+    // 3次正方行列を基底行列に持つ格子
+    Lattice&lt;int&gt; lat(3, 3);
+
+    // Goldestein-Mayer格子に設定
+    lat.setGoldesteinMayerLattice(2, 3);
+
+    // 基底行列の表示
+    std::cout &lt;&lt; lat &lt;&lt; std::endl;
+
+    return 0;
+}</code></pre>
+    <br>
+    <hr style="color: white;">
+    <br>
+    <table>
+        <tr>
+            <th style="width:60px;"><a name="SchnorrLattice">宣言</a></th>
+            <td style="color: yellow;">void setSchnorrLattice(const long N, const double c);</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">概略</th>
+            <td>
+                Schnorr格子に設定する
+                <br>
+                <a href="https://link.springer.com/chapter/10.1007/978-3-642-42001-6_6">C. P. Schnorr. Factoring
+                    Integers by CVP algorithms.(2013)</a>
+            </td>
+        </tr>
+        <tr>
+            <th style="width:60px;">引数</th>
+            <td>
+                <table>
+                    <tr>
+                        <td><code>N</code></td>
+                        <td>：</td>
+                        <td>合成数</td>
+                    </tr>
+                    <tr>
+                        <td><code>c</code></td>
+                        <td>：</td>
+                        <td>精度パラメータ</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <th style="width: 40px;">戻り値</th>
+            <td>なし</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">解説</th>
+            <td>
+                Schnorr格子に設定する関数です．
+                Schnorr格子は本来Schnorrによって提案された，格子問題の一つである最近ベクトル問題（CVP）に素因数分解を帰着させるアルゴリズムに使用する格子です．
+                具体的には，素因数分解したい合成数Nと精度パラメータcに対して
+                <div style="overflow: auto; white-space: pre;">
+                    \[
+                    \begin{pmatrix}
+                    \sqrt{\log p_1} & 0 & \cdots & 0 & N^c\log p_1\\
+                    0 & \sqrt{\log p_2} & \cdots & 0 & N^c\log p_2\\
+                    \vdots & \vdots & \ddots & \vdots & \vdots\\
+                    0 & 0 & \cdots & \sqrt{\log p_n} & N^c\log p_n
+                    \end{pmatrix}
+                    \]
+                </div>
+                で構成されます．
+                従って，格子基底行列のサイズは\(m\in\mathbb{Z}_{>0}\)に対して\(m\times (m+1)\)である必要があります．
+            </td>
+        </tr>
+    </table>
+    <h3>サンプル</h3>
+    <pre class="code_block"><code>#include &lt;iostream&gt;
+#include "lattice.h"
+
+int main()
+{
+    // 3次正方行列を基底行列に持つ格子
+    Lattice&lt;int&gt; lat(3, 3);
+
+    // Schnorr格子に設定
+    lat.setSchnorrLattice(2, 3);
+
+    // 基底行列の表示
+    std::cout &lt;&lt; lat &lt;&lt; std::endl;
+
+    return 0;
+}</code></pre>
+<br>
+<hr style="color: white;">
+<br>
+<p><a href="index.html">戻る</a></p>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <footer style="text-align: center;">
+        <p>Copyright © 2024 さとしん All Rights Reserved.</p>
+    </footer>
+</body>
+
+</html>

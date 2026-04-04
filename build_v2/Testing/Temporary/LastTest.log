@@ -1,0 +1,19 @@
+Start testing: Feb 03 01:45 CST
+----------------------------------------------------------
+1/1 Testing: RunTestExec
+1/1 Test: RunTestExec
+Command: "/home/ma-user/modelarts/user-job-dir/liblat_step/bin/test_exec"
+Directory: /home/ma-user/modelarts/user-job-dir/liblat_step/build2
+"RunTestExec" start time: Feb 03 01:45 CST
+Output:
+----------------------------------------------------------
+欧几里得范数: 3780.47
+<end of output>
+Test time = 6368.18 sec
+----------------------------------------------------------
+Test Passed.
+"RunTestExec" end time: Feb 03 03:31 CST
+"RunTestExec" time elapsed: 01:46:08
+----------------------------------------------------------
+
+End testing: Feb 03 03:31 CST

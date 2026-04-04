@@ -1,0 +1,13 @@
+{
+  "algorithm": "dualPotLLL",
+  "dimension": 80,
+  "seed": 0,
+  "timestamp": "2026-02-06T12:56:32.236180",
+  "best_params": {
+    "delta": 0.5522323250770569
+  },
+  "best_time": 0.2220778465270996,
+  "best_norm": 3468.1694018602957,
+  "best_objective": 0.0,
+  "total_evaluations": 40
+}

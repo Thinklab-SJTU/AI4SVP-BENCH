@@ -1,0 +1,14 @@
+{
+  "algorithm": "deepBKZ",
+  "dimension": 40,
+  "seed": 0,
+  "timestamp": "2026-02-01T21:57:57.434106",
+  "best_params": {
+    "beta": 2.0,
+    "delta": 0.9306747753124187
+  },
+  "best_time": 0.021349668502807617,
+  "best_norm": 1709.173484465518,
+  "best_objective": 0.004965183566686311,
+  "total_evaluations": 40
+}

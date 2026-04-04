@@ -1,0 +1,451 @@
+{
+  "algorithm": "deepBKZ",
+  "dimension": 70,
+  "seed": 0,
+  "objective_weights": {
+    "time": 0.1,
+    "norm": 0.9
+  },
+  "evaluations": [
+    {
+      "iteration": 1,
+      "params": {
+        "beta": 7.0,
+        "delta": 0.5076660513877869
+      },
+      "time": 3.9379076957702637,
+      "norm": 2730.701924414307,
+      "objective": 1.0,
+      "timestamp": 1770295844.8517332
+    },
+    {
+      "iteration": 2,
+      "params": {
+        "beta": 44.0,
+        "delta": 0.94000244140625
+      },
+      "time": Infinity,
+      "norm": Infinity,
+      "objective": 10.0,
+      "timestamp": 1770296444.896461
+    },
+    {
+      "iteration": 3,
+      "params": {
+        "beta": 64.0,
+        "delta": 0.7156650424003601
+      },
+      "time": Infinity,
+      "norm": Infinity,
+      "objective": 10.0,
+      "timestamp": 1770297045.0221
+    },
+    {
+      "iteration": 4,
+      "params": {
+        "beta": 28.0,
+        "delta": 0.7750199437141418
+      },
+      "time": 31.132529735565186,
+      "norm": 2216.2515651432714,
+      "objective": 0.1,
+      "timestamp": 1770297079.7586226
+    },
+    {
+      "iteration": 5,
+      "params": {
+        "beta": 24.0,
+        "delta": 0.6632697582244873
+      },
+      "time": 17.785882234573364,
+      "norm": 2450.6240021676113,
+      "objective": 0.460942238889007,
+      "timestamp": 1770297100.1614282
+    },
+    {
+      "iteration": 6,
+      "params": {
+        "beta": 60.0,
+        "delta": 0.8461672067642212
+      },
+      "time": Infinity,
+      "norm": Infinity,
+      "objective": 10.0,
+      "timestamp": 1770297700.2852776
+    },
+    {
+      "iteration": 7,
+      "params": {
+        "beta": 48.0,
+        "delta": 0.6213337182998657
+      },
+      "time": Infinity,
+      "norm": Infinity,
+      "objective": 10.0,
+      "timestamp": 1770298300.3916557
+    },
+    {
+      "iteration": 8,
+      "params": {
+        "beta": 12.0,
+        "delta": 0.9311199188232422
+      },
+      "time": 1.1351497173309326,
+      "norm": 2309.052836121339,
+      "objective": 0.1623502489114957,
+      "timestamp": 1770298304.8236055
+    },
+    {
+      "iteration": 9,
+      "params": {
+        "beta": 21.0,
+        "delta": 0.9972228023795408
+      },
+      "time": Infinity,
+      "norm": Infinity,
+      "objective": 10.0,
+      "timestamp": 1770298907.5434082
+    },
+    {
+      "iteration": 10,
+      "params": {
+        "beta": 28.0,
+        "delta": 0.8733680367175356
+      },
+      "time": Infinity,
+      "norm": Infinity,
+      "objective": 10.0,
+      "timestamp": 1770299507.6264071
+    },
+    {
+      "iteration": 11,
+      "params": {
+        "beta": 27.0,
+        "delta": 0.9812343285546956
+      },
+      "time": Infinity,
+      "norm": Infinity,
+      "objective": 10.0,
+      "timestamp": 1770300107.6734476
+    },
+    {
+      "iteration": 12,
+      "params": {
+        "beta": 28.0,
+        "delta": 0.917437320266386
+      },
+      "time": Infinity,
+      "norm": Infinity,
+      "objective": 10.0,
+      "timestamp": 1770300707.7394981
+    },
+    {
+      "iteration": 13,
+      "params": {
+        "beta": 10.0,
+        "delta": 0.7677432770121108
+      },
+      "time": 4.927624225616455,
+      "norm": 2429.0928347842123,
+      "objective": 0.38499570146459394,
+      "timestamp": 1770300718.4331
+    },
+    {
+      "iteration": 14,
+      "params": {
+        "beta": 27.0,
+        "delta": 0.7396972644628722
+      },
+      "time": 31.2393958568573,
+      "norm": 2240.4517401631306,
+      "objective": 0.14233675246866437,
+      "timestamp": 1770300752.2554548
+    },
+    {
+      "iteration": 15,
+      "params": {
+        "beta": 27.0,
+        "delta": 0.7537129399964989
+      },
+      "time": Infinity,
+      "norm": Infinity,
+      "objective": 10.0,
+      "timestamp": 1770301352.3776622
+    },
+    {
+      "iteration": 16,
+      "params": {
+        "beta": 26.0,
+        "delta": 0.7441268447039748
+      },
+      "time": Infinity,
+      "norm": Infinity,
+      "objective": 10.0,
+      "timestamp": 1770301952.467586
+    },
+    {
+      "iteration": 17,
+      "params": {
+        "beta": 30.0,
+        "delta": 0.7094625754529906
+      },
+      "time": 40.68953466415405,
+      "norm": 2240.4517401631306,
+      "objective": 0.14233675246866437,
+      "timestamp": 1770301999.1708531
+    },
+    {
+      "iteration": 18,
+      "params": {
+        "beta": 29.0,
+        "delta": 0.7241005674636963
+      },
+      "time": Infinity,
+      "norm": Infinity,
+      "objective": 10.0,
+      "timestamp": 1770302599.2596061
+    },
+    {
+      "iteration": 19,
+      "params": {
+        "beta": 29.0,
+        "delta": 0.7217989363841755
+      },
+      "time": 37.466445207595825,
+      "norm": 2216.2515651432714,
+      "objective": 0.09185149899084173,
+      "timestamp": 1770302640.1546547
+    },
+    {
+      "iteration": 20,
+      "params": {
+        "beta": 30.0,
+        "delta": 0.7214375138282776
+      },
+      "time": 29.653221130371094,
+      "norm": 2142.602856340857,
+      "objective": 0.07209838163677638,
+      "timestamp": 1770302672.3748753
+    },
+    {
+      "iteration": 21,
+      "params": {
+        "beta": 29.0,
+        "delta": 0.8172354388976466
+      },
+      "time": Infinity,
+      "norm": Infinity,
+      "objective": 10.0,
+      "timestamp": 1770303276.1242557
+    },
+    {
+      "iteration": 22,
+      "params": {
+        "beta": 31.0,
+        "delta": 0.714737704087934
+      },
+      "time": 48.28631019592285,
+      "norm": 2235.236005436562,
+      "objective": 0.24176154786173226,
+      "timestamp": 1770303327.7218642
+    },
+    {
+      "iteration": 23,
+      "params": {
+        "beta": 29.0,
+        "delta": 0.8043119081095778
+      },
+      "time": Infinity,
+      "norm": Infinity,
+      "objective": 10.0,
+      "timestamp": 1770303927.7653809
+    },
+    {
+      "iteration": 24,
+      "params": {
+        "beta": 30.0,
+        "delta": 0.7163447600551895
+      },
+      "time": Infinity,
+      "norm": Infinity,
+      "objective": 10.0,
+      "timestamp": 1770304527.8928275
+    },
+    {
+      "iteration": 25,
+      "params": {
+        "beta": 27.0,
+        "delta": 0.7005288813677681
+      },
+      "time": 15.726194858551025,
+      "norm": 2319.699549510669,
+      "objective": 0.30196595606862386,
+      "timestamp": 1770304550.5028508
+    },
+    {
+      "iteration": 26,
+      "params": {
+        "beta": 29.0,
+        "delta": 0.7003375496342517
+      },
+      "time": 39.027366399765015,
+      "norm": 2273.605506678764,
+      "objective": 0.2808437579775228,
+      "timestamp": 1770304592.1734567
+    },
+    {
+      "iteration": 27,
+      "params": {
+        "beta": 28.0,
+        "delta": 0.6963128431678033
+      },
+      "time": 35.141597747802734,
+      "norm": 2338.7282869115,
+      "objective": 0.37226360358800176,
+      "timestamp": 1770304629.9849994
+    },
+    {
+      "iteration": 28,
+      "params": {
+        "beta": 28.0,
+        "delta": 0.702951589021713
+      },
+      "time": Infinity,
+      "norm": Infinity,
+      "objective": 10.0,
+      "timestamp": 1770305230.1141183
+    },
+    {
+      "iteration": 29,
+      "params": {
+        "beta": 30.0,
+        "delta": 0.6724474162407041
+      },
+      "time": 29.09075689315796,
+      "norm": 2261.7225736150754,
+      "objective": 0.24158471426058403,
+      "timestamp": 1770305265.3651857
+    },
+    {
+      "iteration": 30,
+      "params": {
+        "beta": 30.0,
+        "delta": 0.70118346799637
+      },
+      "time": 27.689102172851562,
+      "norm": 2386.467473065577,
+      "objective": 0.42951593736297333,
+      "timestamp": 1770305295.6241784
+    },
+    {
+      "iteration": 31,
+      "params": {
+        "beta": 30.0,
+        "delta": 0.7080703233611718
+      },
+      "time": 40.807231426239014,
+      "norm": 2288.571169966099,
+      "objective": 0.3075213331347222,
+      "timestamp": 1770305339.1268601
+    },
+    {
+      "iteration": 32,
+      "params": {
+        "beta": 30.0,
+        "delta": 0.6813510115916714
+      },
+      "time": 42.04420280456543,
+      "norm": 2238.0842254035033,
+      "objective": 0.2328818316924287,
+      "timestamp": 1770305383.8570266
+    },
+    {
+      "iteration": 33,
+      "params": {
+        "beta": 31.0,
+        "delta": 0.7332885802442028
+      },
+      "time": 44.64139246940613,
+      "norm": 2142.602856340857,
+      "objective": 0.09226971788282576,
+      "timestamp": 1770305433.9546766
+    },
+    {
+      "iteration": 34,
+      "params": {
+        "beta": 29.0,
+        "delta": 0.7162244627106678
+      },
+      "time": 19.305908918380737,
+      "norm": 2219.490256793212,
+      "objective": 0.1562022191003669,
+      "timestamp": 1770305456.6302617
+    },
+    {
+      "iteration": 35,
+      "params": {
+        "beta": 29.0,
+        "delta": 0.715656256804459
+      },
+      "time": Infinity,
+      "norm": Infinity,
+      "objective": 10.0,
+      "timestamp": 1770306056.6815522
+    },
+    {
+      "iteration": 36,
+      "params": {
+        "beta": 31.0,
+        "delta": 0.7299011276075422
+      },
+      "time": Infinity,
+      "norm": Infinity,
+      "objective": 10.0,
+      "timestamp": 1770306656.8100753
+    },
+    {
+      "iteration": 37,
+      "params": {
+        "beta": 31.0,
+        "delta": 0.7479667292697945
+      },
+      "time": 47.66290521621704,
+      "norm": 2265.93159649624,
+      "objective": 0.28741453955635,
+      "timestamp": 1770306710.707144
+    },
+    {
+      "iteration": 38,
+      "params": {
+        "beta": 31.0,
+        "delta": 0.7384868949495986
+      },
+      "time": 25.686088800430298,
+      "norm": 2250.309756455764,
+      "objective": 0.21689830780957894,
+      "timestamp": 1770306738.9915006
+    },
+    {
+      "iteration": 39,
+      "params": {
+        "beta": 31.0,
+        "delta": 0.7384844364616363
+      },
+      "time": 25.58708620071411,
+      "norm": 2250.309756455764,
+      "objective": 0.2166883392770735,
+      "timestamp": 1770306767.2582133
+    },
+    {
+      "iteration": 40,
+      "params": {
+        "beta": 31.0,
+        "delta": 0.7409834960214368
+      },
+      "time": 11.045029640197754,
+      "norm": 2374.7027182365373,
+      "objective": 0.3762123019019581,
+      "timestamp": 1770306780.9750857
+    }
+  ]
+}

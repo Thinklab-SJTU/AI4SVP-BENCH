@@ -1,0 +1,14 @@
+{
+  "algorithm": "BKZ",
+  "dimension": 40,
+  "seed": 0,
+  "timestamp": "2026-02-01T20:55:56.740991",
+  "best_params": {
+    "beta": 4.0,
+    "delta": 0.8218449502598376
+  },
+  "best_time": 0.07091665267944336,
+  "best_norm": 1709.173484465518,
+  "best_objective": 0.01841612407406823,
+  "total_evaluations": 40
+}

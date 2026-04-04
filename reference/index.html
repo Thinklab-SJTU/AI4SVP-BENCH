@@ -1,0 +1,177 @@
+<html>
+
+<head>
+    <title>liblat　関数レファレンスページ</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <style>
+        @import url(style.css);
+    </style>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1 style="text-align:center">
+            liblat　関数レファレンスページ
+        </h1>
+    </header>
+
+    <h2>基礎的な関数</h2>
+    <table style="border: none;">
+        <tr>
+            <th><a href="fund.html#numRows">numRows</a></th>
+            <td>格子基底行列の行数を返す</td>
+        </tr>
+        <tr>
+            <th><a href="fund.html#numCols">numCols</a></th>
+            <td>格子基底行列の列数を返す</td>
+        </tr>
+        <tr>
+            <th><a href="fund.html#setDims">setDims</a></th>
+            <td>格子基底行列のサイズを設定する</td>
+        </tr>
+        <tr>
+            <th><a href="fund.html#setRandom">setRandom</a></th>
+            <td>ランダムにsvp-challenge型の格子基底を設定する</td>
+        </tr>
+        <tr>
+            <th><a href="fund.html#Volume">volume</a></th>
+            <td>格子の体積を計算する</td>
+        </tr>
+        <tr>
+            <th><a href="fund.html#rhf">rhf</a></th>
+            <td>格子のRHFを計算する</td>
+        </tr>
+        <tr>
+            <th><a href="fund.html#gsaslope">sl</a></th>
+            <td>格子のGSA-slopeを計算する</td>
+        </tr>
+        <tr>
+            <th><a href="fund.html#Potential">potential</a></th>
+            <td>格子基底のポテンシャル量を計算する</td>
+        <tr>
+            <th><a href="fund.html#setBasis">setBasis</a></th>
+            <td>格子基底行列を設定する</td>
+        </tr>
+        <tr>
+            <th><a href="fund.html#GSO">computeGSO</a></th>
+            <td>Gram-Schmidtの直交化ベクトルの二乗ノルムとGram-Schmidtの直交化係数行列を計算する</td>
+        </tr>
+        <tr>
+            <th><a href="fund.html#CFA">choleskyFact</a></th>
+            <td>格子基底のGram行列をCholesky分解する</td>
+        </tr>
+        <tr>
+            <th><a href="fund.html#mulVecBasis">mulVecBasis</a></th>
+            <td>係数ベクトルを格子ベクトルに変換する</td>
+        </tr>
+    </table>
+
+    <h2>その他格子の設定に関する関数</h2>
+    <table style="border: none;">
+        <tr>
+            <th><a href="latsetting.html#GoldesteinMayer">setGoldesteinMayerLattice</a></th>
+            <td>Goldestein-Mayer格子に設定する</td>
+        </tr>
+        <tr>
+            <th><a href="latsetting.html#SchnorrLattice">setSchnorrLattice</a></th>
+            <td>Schnorr格子に設定する</td>
+        </tr>
+    </table>
+
+    <h2>基底簡約関係関数</h2>
+    <table style="border: none;">
+        <tr>
+            <th><a href="reduction.html#MaxLoop">setMaxLoop</a></th>
+            <td>BKZ系アルゴリズムのツアー回数の上限を設定する</td>
+        </tr>
+        <tr>
+            <th><a href="reduction.html#DeepInsertion">deepInsertion</a></th>
+            <td>deep-insertionを行う</td>
+        </tr>
+        <tr>
+            <th><a href="reduction.html#DualDeepInsertion">dualDeepInsertion</a></th>
+            <td>双対型deeo-insertionを行う</td>
+        </tr>
+        <tr>
+            <td><a href="reduction.html#updateDeep">updateDeepInsGSO</a></td>
+            <td>deep-insertion後の効率的なGSO情報の更新</td>
+        </tr>
+        <tr>
+            <td><a href="reduction.html#updateDualDeep">updateDualDeepInsGSO</a></td>
+            <td>双対型deep-insertion後の効率的なGSO情報の更新</td>
+        </tr>
+        <tr>
+            <th><a href="reduction.html#size">sizeReduce</a></th>
+            <td>サイズ基底簡約</td>
+        </tr>
+        <tr>
+            <th><a href="reduction.html#LLL">LLL</a></th>
+            <td>LLL基底簡約</td>
+        </tr>
+        <tr>
+            <th><a href="reduction.html#L2">L2</a></th>
+            <td>L2アルゴリズム</td>
+        </tr>
+        <tr>
+            <th><a href="reduction.html#DeepLLL">deepLLL</a></th>
+            <td>DeepLLL基底簡約</td>
+        </tr>
+        <tr>
+            <th><a href="reduction.html#PotLLL">potLLL</a></th>
+            <td>PotLLL基底簡約</td>
+        </tr>
+        <tr>
+            <th><a href="reduction.html#BKZ">BKZ</a></th>
+            <td>BKZ基底簡約</td>
+        </tr>
+        <tr>
+            <th><a href="reduction.html#HKZ">HKZ</a></th>
+            <td>HKZ基底簡約</td>
+        </tr>
+        <tr>
+            <th><a href="reduction.html#DeepBKZ">deepBKZ</a></th>
+            <td>DeepBKZ基底簡約</td>
+        </tr>
+        <tr>
+            <th><a href="reduction.html#PotBKZ">potBKZ</a></th>
+            <td>PotBKZ基底簡約</td>
+        </tr>
+        <tr>
+            <th><a href="reduction.html#DualDeepLLL">dualDeepLLL</a></th>
+            <td>双対型DeepLLL基底簡約</td>
+        </tr>
+        <tr>
+            <th><a href="reduction.html#DualPotLLL">dualPotLLL</a></th>
+            <td>双対型PotLLL基底簡約</td>
+        </tr>
+        <tr>
+            <th><a href="reduction.html#DualBKZ">dualBKZ</a></th>
+            <td>双対型BKZ基底簡約</td>
+        </tr>
+        <tr>
+            <th><a href="reduction.html#DualDeepBKZ">dualDeepBKZ</a></th>
+            <td>双対型DeepBKZ基底簡約</td>
+        </tr>
+        <tr>
+            <th><a href="reduction.html#ENUM">ENUM</a></th>
+            <td>最短ベクトルの数え上げ</td>
+        </tr>
+    </table>
+
+    <h2>その他格子問題の求解に関する関数</h2>
+    <table style="border: none;">
+        <tr>
+            <th><a href="solvelatprob.html#BabaiNP">babaiNearPlane</a></th>
+            <td>Babaiの最近平面法</td>
+        </tr>
+    </table>
+
+    <footer style="text-align: center;">
+        <p>Copyright © 2024 さとしん All Rights Reserved.</p>
+    </footer>
+
+</body>
+
+</html>

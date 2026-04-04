@@ -1,0 +1,13 @@
+{
+  "algorithm": "deepLLL",
+  "dimension": 60,
+  "seed": 0,
+  "timestamp": "2026-02-05T19:51:35.773590",
+  "best_params": {
+    "delta": 0.7999244498411069
+  },
+  "best_time": 0.03715157508850098,
+  "best_norm": 1990.558715536922,
+  "best_objective": 0.0023867227442709985,
+  "total_evaluations": 40
+}

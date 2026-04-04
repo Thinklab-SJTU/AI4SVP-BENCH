@@ -1,0 +1,88 @@
+<html>
+
+<head>
+    <title>liblat　関数レファレンスページ</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/dracula.min.css">
+    <style>
+        @import url(style.css);
+    </style>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1 style="text-align:center">
+            liblat　関数レファレンスページ
+        </h1>
+    </header>
+
+    <h2>
+        その他格子問題の求解に関する関数
+    </h2>
+    <table>
+        <tr>
+            <th style="width:60px;"><a name="BabaiNP">宣言</a></th>
+            <td style="color: yellow;">std::vector&lt;T&gt; babaiNearPlane(const std::vector&lt;double&gt; target);</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">概略</th>
+            <td>
+                Babaiの最近平面法
+            </td>
+        </tr>
+        <tr>
+            <th style="width:60px;">引数</th>
+            <td>
+                <table>
+                    <tr>
+                        <td><code>std::vector&lt;double&gt;</code></td>
+                        <td>：</td>
+                        <td>目標ベクトル</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <th style="width: 40px;">戻り値</th>
+            <td>目標ベクトルに近い格子ベクトル</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">解説</th>
+            <td>
+                Babaiの最近平面法を用いて，目標ベクトル<code>target</code>の近似最近ベクトルを求めます．
+            </td>
+        </tr>
+    </table>
+    <h3>サンプル</h3>
+    <pre class="code_block"><code>#include &lt;iostream&gt;
+#include "lattice.h"
+
+int main()
+{
+    // 3次正方行列を基底行列に持つ格子
+    Lattice&lt;int&gt; lat(3, 3);
+
+    // 目標ベクトルの設定
+    std::vector&lt;double&gt; v = {19, 78, -9};
+
+    // 近似最近ベクトルの表示
+    print(lat.babaiNearPlane(v));
+
+    return 0;
+}</code></pre>
+<br>
+<hr style="color: white;">
+<br>
+<p><a href="index.html">戻る</a></p>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <footer style="text-align: center;">
+        <p>Copyright © 2024 さとしん All Rights Reserved.</p>
+    </footer>
+</body>
+
+</html>

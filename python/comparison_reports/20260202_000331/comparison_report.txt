@@ -1,0 +1,50 @@
+
+================================================================================
+SVP Algorithms Hyperparameter Optimization Comparison Report
+================================================================================
+Generated at: 2026-02-02 00:03:31
+
+
+
+============================================================
+DIMENSION 40
+============================================================
+
+Algorithm       Best Parameters                Objective    Directory
+--------------- ------------------------------ ------------ ----------------------------------------
+LLL             delta=0.508                    0.7000       ./opt_results/LLL_dim40_20260201_223152
+deepLLL         delta=0.857                    0.0298       ./opt_results/deepLLL_dim40_20260201_223417
+potLLL          delta=0.936                    0.1713       ./opt_results/potLLL_dim40_20260201_223630
+dualLLL         delta=0.609                    0.7059       ./opt_results/dualLLL_dim40_20260201_223841
+dualDeepLLL     delta=0.856                    0.0333       ./opt_results/dualDeepLLL_dim40_20260201_224053
+dualPotLLL      delta=0.999                    0.1347       ./opt_results/dualPotLLL_dim40_20260201_224303
+HKZ             delta=1.000                    0.0000       ./opt_results/HKZ_dim40_20260201_224515
+L2              eta=0.613, delta=0.528         0.6000       ./opt_results/L2_dim40_20260201_224855
+BKZ             beta=4.000, delta=0.658        0.0181       ./opt_results/BKZ_dim40_20260201_225103
+deepBKZ         beta=4.000, delta=0.992        0.0000       ./opt_results/deepBKZ_dim40_20260201_225322
+potBKZ          FAILED                         N/A          N/A
+dualBKZ         beta=9.000, delta=0.712        0.5000       ./opt_results/dualBKZ_dim40_20260201_230330
+dualDeepBKZ     beta=17.000, delta=0.856       0.1977       ./opt_results/dualDeepBKZ_dim40_20260201_230541
+ENUM            FAILED                         N/A          N/A
+
+
+============================================================
+DIMENSION 50
+============================================================
+
+Algorithm       Best Parameters                Objective    Directory
+--------------- ------------------------------ ------------ ----------------------------------------
+LLL             delta=0.752                    0.7000       ./opt_results/LLL_dim50_20260201_230756
+deepLLL         delta=0.995                    0.0790       ./opt_results/deepLLL_dim50_20260201_231005
+potLLL          delta=0.625                    0.1436       ./opt_results/potLLL_dim50_20260201_231215
+dualLLL         delta=0.970                    0.7000       ./opt_results/dualLLL_dim50_20260201_231424
+dualDeepLLL     delta=0.530                    0.0000       ./opt_results/dualDeepLLL_dim50_20260201_231633
+dualPotLLL      delta=0.741                    0.0000       ./opt_results/dualPotLLL_dim50_20260201_231844
+HKZ             FAILED                         N/A          N/A
+L2              eta=0.746, delta=0.981         0.6000       ./opt_results/L2_dim50_20260201_232454
+BKZ             beta=23.000, delta=0.679       0.0334       ./opt_results/BKZ_dim50_20260201_232701
+deepBKZ         beta=26.000, delta=0.976       0.0000       ./opt_results/deepBKZ_dim50_20260201_233425
+potBKZ          FAILED                         N/A          N/A
+dualBKZ         beta=17.000, delta=0.685       0.5000       ./opt_results/dualBKZ_dim50_20260201_235708
+dualDeepBKZ     beta=12.000, delta=0.591       0.0000       ./opt_results/dualDeepBKZ_dim50_20260201_235918
+ENUM            FAILED                         N/A          N/A

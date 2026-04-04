@@ -1,0 +1,1284 @@
+<html>
+
+<head>
+    <title>liblat　関数レファレンスページ</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/dracula.min.css">
+    <style>
+        @import url(style.css);
+    </style>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1 style="text-align:center">
+            liblat　関数レファレンスページ
+        </h1>
+    </header>
+
+    <h2>基底簡約関係関数</h2>
+    <table>
+        <tr>
+            <th style="width:60px;"><a name="MaxLoop">宣言</a></th>
+            <td style="color: yellow;">void setMaxLoop(const long max_loop);</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">概略</th>
+            <td>
+                BKZやDeepBKZのツアー回数の上限を設定する
+            </td>
+        </tr>
+        <tr>
+            <th style="width:60px;">引数</th>
+            <td>
+                <table>
+                    <tr>
+                        <td><code>max_loop</code></td>
+                        <td>：</td>
+                        <td>ツアー回数の上限</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <th style="width: 40px;">戻り値</th>
+            <td>なし</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">解説</th>
+            <td>
+                BKZやDeepBKZのツアー回数の上限を設定する関数です．
+                BKZアルゴリズムやDeepBKZアルゴリズムなどは停止性が保証されていないので，確実に停止させるにはツアー回数の上限を設定してあげる必要があります．
+            </td>
+        </tr>
+    </table>
+    <h3>サンプル</h3>
+    <p>なし</p>
+    <br>
+    <hr style="color: white;">
+    <br>
+    <table>
+        <tr>
+            <th style="width:60px;"><a name="DeepInsertion">宣言</a></th>
+            <td style="color: yellow;">void deepInsertion(const long k, const long l);</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">概略</th>
+            <td>
+                deep-insertionを行う
+            </td>
+        </tr>
+        <tr>
+            <th style="width:60px;">引数</th>
+            <td>
+                <table>
+                    <tr>
+                        <td><code>k</code></td>
+                        <td>：</td>
+                        <td>基底を挿入するインデックス</td>
+                    </tr>
+                    <tr>
+                        <td><code>l</code></td>
+                        <td>：</td>
+                        <td>引き抜く基底のインデックス</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <th style="width: 40px;">戻り値</th>
+            <td>なし</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">解説</th>
+            <td>
+                基底にdeep-insertionを施す関数です．
+                具体的には基底\(\lbrace\ldots,\boldsymbol{b}_k,\ldots,\boldsymbol{b}_\ell,\ldots\rbrace\)を\(\lbrace\ldots,\boldsymbol{b}_{k-1},\boldsymbol{b}_\ell,\boldsymbol{b}_k,\ldots,\boldsymbol{b}_{\ell-1},\boldsymbol{b}_{\ell+1},\ldots\rbrace\)に変換します．
+            </td>
+        </tr>
+    </table>
+    <h3>サンプル</h3>
+    <p>なし</p>
+    <br>
+    <hr style="color: white;">
+    <br>
+    <table>
+        <tr>
+            <th style="width:60px;"><a name="DualDeepInsertion">宣言</a></th>
+            <td style="color: yellow;">void dualDeepInsertion(const long k, const long l);</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">概略</th>
+            <td>
+                双対型deep-insertionを行う
+            </td>
+        </tr>
+        <tr>
+            <th style="width:60px;">引数</th>
+            <td>
+                <table>
+                    <tr>
+                        <td><code>k</code></td>
+                        <td>：</td>
+                        <td>引き抜く基底のインデックス</td>
+                    </tr>
+                    <tr>
+                        <td><code>l</code></td>
+                        <td>：</td>
+                        <td>基底を挿入するインデックス</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <th style="width: 40px;">戻り値</th>
+            <td>なし</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">解説</th>
+            <td>
+                基底に双対型deep-insertionを施す関数です．
+                具体的には基底\(\lbrace\ldots,\boldsymbol{b}_k,\ldots,\boldsymbol{b}_\ell,\ldots\rbrace\)を\(\lbrace\ldots,\boldsymbol{b}_{k-1},\boldsymbol{b}_{k+1},\ldots,\boldsymbol{b}_{\ell},\boldsymbol{b}_{k},\boldsymbol{b}_{\ell+1},\ldots\rbrace\)に変換します．
+            </td>
+        </tr>
+    </table>
+    <h3>サンプル</h3>
+    <p>なし</p>
+    <br>
+    <hr style="color: white;">
+    <br>
+    <table>
+        <tr>
+            <th style="width:60px;"><a name="updateDeep">宣言</a></th>
+            <td style="color: yellow;">void updateDeepInsGSO(const long i, const long k, const long start, const long
+                end);</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">概略</th>
+            <td>
+                deep-insertionを施した後のGSO情報の効率的な更新
+            </td>
+        </tr>
+        <tr>
+            <th style="width:60px;">引数</th>
+            <td>
+                <table>
+                    <tr>
+                        <td><code>i</code></td>
+                        <td>：</td>
+                        <td>引き抜く基底のインデックス</td>
+                    </tr>
+                    <tr>
+                        <td><code>k</code></td>
+                        <td>：</td>
+                        <td>基底を挿入するインデックス</td>
+                    </tr>
+                    <tr>
+                        <td><code>start</code></td>
+                        <td>：</td>
+                        <td>deep-insertionを格子基底の一部に施す際，その開始インデックス</td>
+                    </tr>
+                    <tr>
+                        <td><code>end</code></td>
+                        <td>：</td>
+                        <td>deep-insertionを格子基底の一部に施す際，その終了インデックス</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <th style="width: 40px;">戻り値</th>
+            <td>なし</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">解説</th>
+            <td>
+                基底にdeep-insertionを施した後のGSO情報の更新を効率的に行う関数です．
+                <a
+                    href="fund.html#GSO">computeGSO</a>関数を用いてGSO情報を更新することも可能ですが，効率的ではない上に誤差が出やすいのでこの関数を用いて更新することを強くおすすめします．
+            </td>
+        </tr>
+    </table>
+    <h3>サンプル</h3>
+    <p><a href="../src/reduction.cpp">reduction.cpp</a>の<code>deepLLL</code>関数を参照のこと．</p>
+    <br>
+    <hr style="color: white;">
+    <br>
+    <table>
+        <tr>
+            <th style="width:60px;"><a name="updateDualDeep">宣言</a></th>
+            <td style="color: yellow;">void updateDualDeepInsGSO(const long k, const long l, const std::vector<double>
+                    dual_D);</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">概略</th>
+            <td>
+                双対型deep-insertionを施した後のGSO情報の効率的な更新
+            </td>
+        </tr>
+        <tr>
+            <th style="width:60px;">引数</th>
+            <td>
+                <table>
+                    <tr>
+                        <td><code>i</code></td>
+                        <td>：</td>
+                        <td>引き抜く基底のインデックス</td>
+                    </tr>
+                    <tr>
+                        <td><code>k</code></td>
+                        <td>：</td>
+                        <td>基底を挿入するインデックス</td>
+                    </tr>
+                    <tr>
+                        <td><code>start</code></td>
+                        <td>：</td>
+                        <td>deep-insertionを格子基底の一部に施す際，その開始インデックス</td>
+                    </tr>
+                    <tr>
+                        <td><code>end</code></td>
+                        <td>：</td>
+                        <td>deep-insertionを格子基底の一部に施す際，その終了インデックス</td>
+                    </tr>
+                    <tr>
+                        <td><code>dual_D</code></td>
+                        <td>：</td>
+                        <td></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <th style="width: 40px;">戻り値</th>
+            <td>なし</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">解説</th>
+            <td>
+                基底に双対型deep-insertionを施した後のGSO情報の更新を効率的に行う関数です．
+                <a
+                    href="fund.html#GSO">computeGSO</a>関数を用いてGSO情報を更新することも可能ですが，効率的ではない上に誤差が出やすいのでこの関数を用いて更新することを強くおすすめします．
+            </td>
+        </tr>
+    </table>
+    <h3>サンプル</h3>
+    <p><a href="../src/reduction.cpp">reduction.cpp</a>の<code>dualDeepLLL</code>関数を参照のこと．</p>
+    <br>
+    <hr style="color: white;">
+    <br>
+    <table>
+        <tr>
+            <th style="width:60px;"><a name="size">宣言</a></th>
+            <td style="color: yellow;">void sizeReduce(const bool compute_gso = true);</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">概略</th>
+            <td>
+                サイズ基底簡約
+                <br>
+                <a
+                    href="https://www.amazon.co.jp/%E6%A0%BC%E5%AD%90%E6%9A%97%E5%8F%B7%E8%A7%A3%E8%AA%AD%E3%81%AE%E3%81%9F%E3%82%81%E3%81%AE%E6%95%B0%E5%AD%A6%E7%9A%84%E5%9F%BA%E7%A4%8E-IMI%E3%82%B7%E3%83%AA%E3%83%BC%E3%82%BA-%E9%80%B2%E5%8C%96%E3%81%99%E3%82%8B%E7%94%A3%E6%A5%AD%E6%95%B0%E5%AD%A6-%E9%9D%92%E9%87%8E-%E8%89%AF%E7%AF%84/dp/4764905981">Y.
+                    Aono and M. Yasuda. 格子暗号解読のための数学的基礎.(2019)</a>
+            </td>
+        </tr>
+        <tr>
+            <th style="width:60px;">引数</th>
+            <td>
+                <table>
+                    <tr>
+                        <td><code>compute_gso</code></td>
+                        <td>：</td>
+                        <td>簡約する前にGSO情報を更新するか．<br>事前にGSO情報を計算していない場合はtrueにする必要がある</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <th style="width: 40px;">戻り値</th>
+            <td>なし</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">解説</th>
+            <td>
+                格子基底\(\lbrace\boldsymbol{b}_1, \ldots,
+                \boldsymbol{b}_n\rbrace\)をサイズ基底簡約する関数です．
+            </td>
+        </tr>
+    </table>
+    <h3>サンプル</h3>
+    <pre class="code_block"><code>#include &lt;iostream&gt;
+#include "lattice.h"
+        
+int main()
+{
+    // 80次正方行列を基底行列に持つ格子
+    Lattice&lt;int&gt; lat(80, 80);
+        
+    // ランダムなSVP型格子に設定
+    lat.setRandom(80, 80, 1000, 9999);
+            
+    // サイズ基底簡約
+    lat.sizeReduce();
+
+    // 基底行列の表示
+    std::cout &lt;&lt; lat &lt;&lt; std::endl;
+        
+    return 0;
+}</code></pre>
+    <br>
+    <hr style="color: white;">
+    <br>
+    <table>
+        <tr>
+            <th style="width:60px;"><a name="LLL">宣言</a></th>
+            <td style="color: yellow;">void LLL(const double delta = 0.75, const bool compute_gso = true, const long
+                start_ = 0, const long end_ = -1);</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">概略</th>
+            <td>
+                LLL基底簡約
+                <br>
+                <a href="https://link.springer.com/article/10.1007/BF01457454">A. K. Lenstra, H. W. Lenstra and L.
+                    Lovasz.
+                    Factoring polynomials with rational coefficients.(1982)</a>
+            </td>
+        </tr>
+        <tr>
+            <th style="width:60px;">引数</th>
+            <td>
+                <table>
+                    <tr>
+                        <td><code>delta</code></td>
+                        <td>：</td>
+                        <td>簡約パラメータ（0.75以上1以下）</td>
+                    </tr>
+                    <tr>
+                        <td><code>compute_gso</code></td>
+                        <td>：</td>
+                        <td>簡約する前にGSO情報を更新するか．<br>事前にGSO情報を計算していない場合はtrueにする必要がある</td>
+                    </tr>
+                    <tr>
+                        <td><code>start_</code></td>
+                        <td>：</td>
+                        <td>LLL簡約を基底の一部分にのみ行う場合，その開始インデックス</td>
+                    </tr>
+                    <tr>
+                        <td><code>end_</code></td>
+                        <td>：</td>
+                        <td>LLL簡約を基底の一部分にのみ行う場合，その終了インデックス</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <th style="width: 40px;">戻り値</th>
+            <td>なし</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">解説</th>
+            <td>
+                格子基底\(\lbrace\boldsymbol{b}_1, \ldots,
+                \boldsymbol{b}_n\rbrace\)に対して，その部分格子基底\(\lbrace\boldsymbol{b}_{\texttt{start_}+1}, \ldots,
+                \boldsymbol{b}_\texttt{end_}\rbrace\)を簡約パラメータdeltaに関してLLL簡約する関数です．
+            </td>
+        </tr>
+    </table>
+    <h3>サンプル</h3>
+    <pre class="code_block"><code>#include &lt;iostream&gt;
+#include "lattice.h"
+        
+int main()
+{
+    // 40次正方行列を基底行列に持つ格子
+    Lattice&lt;int&gt; lat(40, 40);
+        
+    // ランダムなSVP型格子に設定
+    lat.setRandom(40, 40, 1000, 9999);
+            
+    // LLL基底簡約
+    lat.LLL(0.99);
+
+    // 基底行列の表示
+    std::cout &lt;&lt; lat &lt;&lt; std::endl;
+        
+    return 0;
+}</code></pre>
+    <br>
+    <hr style="color: white;">
+    <br>
+    <table>
+        <tr>
+            <th style="width:60px;"><a name="L2">宣言</a></th>
+            <td style="color: yellow;">void L2(const double delta = 0.75, const double eta = 0.51);</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">概略</th>
+            <td>
+                L2アルゴリズムを用いたLLL基底簡約
+                <br>
+                <a href="https://link.springer.com/chapter/10.1007/11426639_13">P. Q. Nguyen and D. Stehle.
+                    Floating-point LLL revisited.(2005)</a>
+                <br>
+                <a href="https://epubs.siam.org/doi/10.1137/070705702">P. Q. Nguyen and D. Stehle. An LLL algorithm with
+                    quadratic complexity.(2009)</a>
+            </td>
+        </tr>
+        <tr>
+            <th style="width:60px;">引数</th>
+            <td>
+                <table>
+                    <tr>
+                        <td><code>delta</code></td>
+                        <td>：</td>
+                        <td>LLLの簡約パラメータ（0.25以上1以下）</td>
+                    </tr>
+                    <tr>
+                        <td><code>eta</code></td>
+                        <td>：</td>
+                        <td>サイズ基底簡約の簡約パラメータ（0.5以上\(\sqrt{\texttt{eta}}\)以下）</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <th style="width: 40px;">戻り値</th>
+            <td>なし</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">解説</th>
+            <td>
+                格子基底\(\lbrace\boldsymbol{b}_1, \ldots,
+                \boldsymbol{b}_n\rbrace\)を簡約パラメータdeltaとetaに関してL2アルゴリズムを用いてLLL簡約する関数です．
+            </td>
+        </tr>
+    </table>
+    <h3>サンプル</h3>
+    <pre class="code_block"><code>#include &lt;iostream&gt;
+#include "lattice.h"
+        
+int main()
+{
+    // 40次正方行列を基底行列に持つ格子
+    Lattice&lt;int&gt; lat(40, 40);
+        
+    // ランダムなSVP型格子に設定
+    lat.setRandom(40, 40, 1000, 9999);
+            
+    // LLL基底簡約
+    lat.L2(0.99, 0.51);
+
+    // 基底行列の表示
+    std::cout &lt;&lt; lat &lt;&lt; std::endl;
+        
+    return 0;
+}</code></pre>
+    <br>
+    <hr style="color: white;">
+    <br>
+    <table>
+        <tr>
+            <th style="width:60px;"><a name="DeepLLL">宣言</a></th>
+            <td style="color: yellow;">void deepLLL(const double delta = 0.75, const bool compute_gso = true, const long
+                start_ = 0, const long end_ = -1);</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">概略</th>
+            <td>
+                DeepLLL基底簡約
+                <br>
+                <a href="https://link.springer.com/article/10.1007/BF01581144">
+                    C. P. Schnorr and M. Euchner. Lattice basis
+                    reduction: Improved practical algorithms and solving subset sum
+                    problem.(1994)
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <th style="width:60px;">引数</th>
+            <td>
+                <table>
+                    <tr>
+                        <td><code>delta</code></td>
+                        <td>：</td>
+                        <td>簡約パラメータ（0.75以上1以下）</td>
+                    </tr>
+                    <tr>
+                        <td><code>compute_gso</code></td>
+                        <td>：</td>
+                        <td>簡約する前にGSO情報を更新するか．<br>事前にGSO情報を計算していない場合はtrueにする必要がある</td>
+                    </tr>
+                    <tr>
+                        <td><code>start_</code></td>
+                        <td>：</td>
+                        <td>DeepLLL簡約を基底の一部分にのみ行う場合，その開始インデックス</td>
+                    </tr>
+                    <tr>
+                        <td><code>end_</code></td>
+                        <td>：</td>
+                        <td>DeepLLL簡約を基底の一部分にのみ行う場合，その終了インデックス</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <th style="width: 40px;">戻り値</th>
+            <td>なし</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">解説</th>
+            <td>
+                格子基底\(\lbrace\boldsymbol{b}_1, \ldots,
+                \boldsymbol{b}_n\rbrace\)に対して，その部分格子基底\(\lbrace\boldsymbol{b}_{\texttt{start_}+1}, \ldots,
+                \boldsymbol{b}_\texttt{end_}\rbrace\)を簡約パラメータdeltaに関してDeepLLL簡約する関数です．
+            </td>
+        </tr>
+    </table>
+    <h3>サンプル</h3>
+    <pre class="code_block"><code>#include &lt;iostream&gt;
+#include "lattice.h"
+        
+int main()
+{
+    // 40次正方行列を基底行列に持つ格子
+    Lattice&lt;int&gt; lat(40, 40);
+        
+    // ランダムなSVP型格子に設定
+    lat.setRandom(40, 40, 1000, 9999);
+            
+    // DeepLLL基底簡約
+    lat.deepLLL(0.99);
+
+    // 基底行列の表示
+    std::cout &lt;&lt; lat &lt;&lt; std::endl;
+        
+    return 0;
+}</code></pre>
+    <br>
+    <hr style="color: white;">
+    <br>
+    <table>
+        <tr>
+            <th style="width:60px;"><a name="PotLLL">宣言</a></th>
+            <td style="color: yellow;">void potLLL(const double delta = 0.75, const bool compute_gso = true);</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">概略</th>
+            <td>
+                PotLLL基底簡約
+                <br>
+                <a href="https://link.springer.com/article/10.1007/s10623-014-9918-8">F. Fontein, M. Schneider and U.
+                    Wagner. PotLLL: A polynomial time version of LLL with deep
+                    insertions.(2014)
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <th style="width:60px;">引数</th>
+            <td>
+                <table>
+                    <tr>
+                        <td><code>delta</code></td>
+                        <td>：</td>
+                        <td>簡約パラメータ（0.75以上1以下）</td>
+                    </tr>
+                    <tr>
+                        <td><code>compute_gso</code></td>
+                        <td>：</td>
+                        <td>簡約する前にGSO情報を更新するか．<br>事前にGSO情報を計算していない場合はtrueにする必要がある</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <th style="width: 40px;">戻り値</th>
+            <td>なし</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">解説</th>
+            <td>
+                格子基底\(\lbrace\boldsymbol{b}_1, \ldots,
+                \boldsymbol{b}_n\rbrace\)を簡約パラメータdeltaに関してPotLLL簡約する関数です．
+            </td>
+        </tr>
+    </table>
+    <h3>サンプル</h3>
+    <pre class="code_block"><code>#include &lt;iostream&gt;
+#include "lattice.h"
+        
+int main()
+{
+    // 40次正方行列を基底行列に持つ格子
+    Lattice&lt;int&gt; lat(40, 40);
+        
+    // ランダムなSVP型格子に設定
+    lat.setRandom(40, 40, 1000, 9999);
+            
+    // PotLLL基底簡約
+    lat.potLLL(0.99);
+
+    // 基底行列の表示
+    std::cout &lt;&lt; lat &lt;&lt; std::endl;
+        
+    return 0;
+}</code></pre>
+    <br>
+    <hr style="color: white;">
+    <br>
+    <table>
+        <tr>
+            <th style="width:60px;"><a name="BKZ">宣言</a></th>
+            <td style="color: yellow;">void BKZ(const long beta, const double delta = 0.75, const bool compute_gso =
+                true);</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">概略</th>
+            <td>
+                BKZ基底簡約
+                <br>
+                <a href="https://link.springer.com/article/10.1007/BF01581144">C. P. Schnorr and M. Euchner. Lattice
+                    basis
+                    reduction: Improved practical algorithms and solving subset sum problem.(1994)
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <th style="width:60px;">引数</th>
+            <td>
+                <table>
+                    <tr>
+                        <td><code>beta</code></td>
+                        <td>：</td>
+                        <td>ブロックサイズ（2以上格子次元以下）</td>
+                    </tr>
+                    <tr>
+                        <td><code>delta</code></td>
+                        <td>：</td>
+                        <td>簡約パラメータ（0.75以上1以下）</td>
+                    </tr>
+                    <tr>
+                        <td><code>compute_gso</code></td>
+                        <td>：</td>
+                        <td>簡約する前にGSO情報を更新するか．<br>事前にGSO情報を計算していない場合はtrueにする必要がある</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <th style="width: 40px;">戻り値</th>
+            <td>なし</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">解説</th>
+            <td>
+                格子基底\(\lbrace\boldsymbol{b}_1, \ldots,
+                \boldsymbol{b}_n\rbrace\)をブロックサイズbetaと簡約パラメータdeltaに関してBKZ簡約する関数です．
+            </td>
+        </tr>
+    </table>
+    <h3>サンプル</h3>
+    <pre class="code_block"><code>#include &lt;iostream&gt;
+#include "lattice.h"
+        
+int main()
+{
+    // 80次正方行列を基底行列に持つ格子
+    Lattice&lt;int&gt; lat(80, 80);
+        
+    // ランダムなSVP型格子に設定
+    lat.setRandom(80, 80, 1000, 9999);
+            
+    // BKZ基底簡約
+    lat.BKZ(40, 0.99);
+
+    // 基底行列の表示
+    std::cout &lt;&lt; lat &lt;&lt; std::endl;
+        
+    return 0;
+}</code></pre>
+    <br>
+    <hr style="color: white;">
+    <br>
+    <table>
+        <tr>
+            <th style="width:60px;"><a name="HKZ">宣言</a></th>
+            <td style="color: yellow;">void HKZ(const double delta = 0.75, const bool compute_gso = true);</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">概略</th>
+            <td>
+                HKZ基底簡約
+                <br>
+                <a href="https://link.springer.com/article/10.1007/BF01442912">A. Korkine and G. Zolotareff. Sur les
+                    formes
+                    quadratiques positives ternaires.(1872)</a>
+                <br>
+                <a href="https://link.springer.com/article/10.1007/BF01442795">A. Korkine and G. Zolotareff. Sur les
+                    formes
+                    quadratiques.(1873)</a>
+                <br>
+                <a href="https://link.springer.com/article/10.1007/BF01581144">C. P. Schnorr and M. Euchner. Lattice
+                    basis
+                    reduction: Improved practical algorithms and solving subset sum problem.(1994)
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <th style="width:60px;">引数</th>
+            <td>
+                <table>
+                    <tr>
+                        <td><code>delta</code></td>
+                        <td>：</td>
+                        <td>簡約パラメータ（0.75以上1以下）</td>
+                    </tr>
+                    <tr>
+                        <td><code>compute_gso</code></td>
+                        <td>：</td>
+                        <td>簡約する前にGSO情報を更新するか．<br>事前にGSO情報を計算していない場合はtrueにする必要がある</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <th style="width: 40px;">戻り値</th>
+            <td>なし</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">解説</th>
+            <td>
+                格子基底\(\lbrace\boldsymbol{b}_1, \ldots,
+                \boldsymbol{b}_n\rbrace\)を簡約パラメータdeltaに関してHKZ簡約する関数です．
+                <br>
+                具体的には，格子基底を格子次元と同じ大きさのブロックサイズに関してBKZ基底簡約します．
+            </td>
+        </tr>
+    </table>
+    <h3>サンプル</h3>
+    <pre class="code_block"><code>#include &lt;iostream&gt;
+#include "lattice.h"
+        
+int main()
+{
+    // 80次正方行列を基底行列に持つ格子
+    Lattice&lt;int&gt; lat(80, 80);
+        
+    // ランダムなSVP型格子に設定
+    lat.setRandom(80, 80, 1000, 9999);
+            
+    // HKZ基底簡約
+    lat.HKZ(0.99);
+
+    // 基底行列の表示
+    std::cout &lt;&lt; lat &lt;&lt; std::endl;
+        
+    return 0;
+}</code></pre>
+    <br>
+    <hr style="color: white;">
+    <br>
+    <table>
+        <tr>
+            <th style="width:60px;"><a name="DeepBKZ">宣言</a></th>
+            <td style="color: yellow;">void deepBKZ(const long beta, const double delta = 0.75, const bool compute_gso =
+                true);</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">概略</th>
+            <td>
+                DeepBKZ基底簡約
+                <br>
+                <a href="https://link.springer.com/chapter/10.1007/978-3-319-76620-1_9">J. Yamaguchi and M. Yasuda.
+                    Explicit formula for Gram-Schmidt vectors in LLL with deep insertions and its applications.(2017)
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <th style="width:60px;">引数</th>
+            <td>
+                <table>
+                    <tr>
+                        <td><code>beta</code></td>
+                        <td>：</td>
+                        <td>ブロックサイズ（2以上格子次元以下）</td>
+                    </tr>
+                    <tr>
+                        <td><code>delta</code></td>
+                        <td>：</td>
+                        <td>簡約パラメータ（0.75以上1以下）</td>
+                    </tr>
+                    <tr>
+                        <td><code>compute_gso</code></td>
+                        <td>：</td>
+                        <td>簡約する前にGSO情報を更新するか．<br>事前にGSO情報を計算していない場合はtrueにする必要がある</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <th style="width: 40px;">戻り値</th>
+            <td>なし</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">解説</th>
+            <td>
+                格子基底\(\lbrace\boldsymbol{b}_1, \ldots,
+                \boldsymbol{b}_n\rbrace\)をブロックサイズbetaと簡約パラメータdeltaに関してDeepBKZ簡約する関数です．
+                <br>
+                具体的には，BKZアルゴリズムのサブルーチンとして使っているLLLの代わりにDeepLLLを使用することによって実現しています．
+            </td>
+        </tr>
+    </table>
+    <h3>サンプル</h3>
+    <pre class="code_block"><code>#include &lt;iostream&gt;
+#include "lattice.h"
+        
+int main()
+{
+    // 80次正方行列を基底行列に持つ格子
+    Lattice&lt;int&gt; lat(80, 80);
+        
+    // ランダムなSVP型格子に設定
+    lat.setRandom(80, 80, 1000, 9999);
+            
+    // DeepBKZ基底簡約
+    lat.deepBKZ(40, 0.99);
+
+    // 基底行列の表示
+    std::cout &lt;&lt; lat &lt;&lt; std::endl;
+        
+    return 0;
+}</code></pre>
+    <br>
+    <hr style="color: white;">
+    <br>
+    <table>
+        <tr>
+            <th style="width:60px;"><a name="PotBKZ">宣言</a></th>
+            <td style="color: yellow;">void potBKZ(const long beta, const double delta = 0.75, const bool compute_gso =
+                true);</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">概略</th>
+            <td>
+                PotBKZ基底簡約
+                <br>
+                <a href="https://www.iwsec.org/scis/2025/program.html#2D2">A. Sato and M. Yasuda.
+                    自己双対型PotBKZ基底簡約の提案とBKZとの比較.(2025)
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <th style="width:60px;">引数</th>
+            <td>
+                <table>
+                    <tr>
+                        <td><code>beta</code></td>
+                        <td>：</td>
+                        <td>ブロックサイズ（2以上格子次元以下）</td>
+                    </tr>
+                    <tr>
+                        <td><code>delta</code></td>
+                        <td>：</td>
+                        <td>簡約パラメータ（0.75以上1以下）</td>
+                    </tr>
+                    <tr>
+                        <td><code>compute_gso</code></td>
+                        <td>：</td>
+                        <td>簡約する前にGSO情報を更新するか．<br>事前にGSO情報を計算していない場合はtrueにする必要がある</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <th style="width: 40px;">戻り値</th>
+            <td>なし</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">解説</th>
+            <td>
+                格子基底\(\lbrace\boldsymbol{b}_1, \ldots,
+                \boldsymbol{b}_n\rbrace\)をブロックサイズbetaと簡約パラメータdeltaに関してPotBKZ簡約する関数です．
+            </td>
+        </tr>
+    </table>
+    <h3>サンプル</h3>
+    <pre class="code_block"><code>#include &lt;iostream&gt;
+#include "lattice.h"
+        
+int main()
+{
+    // 80次正方行列を基底行列に持つ格子
+    Lattice&lt;int&gt; lat(80, 80);
+        
+    // ランダムなSVP型格子に設定
+    lat.setRandom(80, 80, 1000, 9999);
+            
+    // PotBKZ基底簡約
+    lat.potBKZ(40, 0.99);
+
+    // 基底行列の表示
+    std::cout &lt;&lt; lat &lt;&lt; std::endl;
+        
+    return 0;
+}</code></pre>
+    <br>
+    <hr style="color: white;">
+    <br>
+    <table>
+        <tr>
+            <th style="width:60px;"><a name="DualDeepLLL">宣言</a></th>
+            <td style="color: yellow;">void dualDeepLLL(const double delta = 0.75, const bool compute_gso = true);</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">概略</th>
+            <td>
+                双対型DeepLLL基底簡約
+                <br>
+                <a href="https://link.springer.com/chapter/10.1007/978-3-319-89339-6_10">M. Yasuda, J. Yamaguchi, M.
+                    Ooka and S. Nakamura. Development of a dual version of DeepBKZ and its application to solving the
+                    LWE
+                    challenge.(2018)
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <th style="width:60px;">引数</th>
+            <td>
+                <table>
+                    <tr>
+                        <td><code>delta</code></td>
+                        <td>：</td>
+                        <td>簡約パラメータ（0.75以上1以下）</td>
+                    </tr>
+                    <tr>
+                        <td><code>compute_gso</code></td>
+                        <td>：</td>
+                        <td>簡約する前にGSO情報を更新するか．<br>事前にGSO情報を計算していない場合はtrueにする必要がある</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <th style="width: 40px;">戻り値</th>
+            <td>なし</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">解説</th>
+            <td>
+                格子基底\(\lbrace\boldsymbol{b}_1, \ldots,
+                \boldsymbol{b}_n\rbrace\)を簡約パラメータdeltaに関して双対型DeepLLL簡約する関数です．
+            </td>
+        </tr>
+    </table>
+    <h3>サンプル</h3>
+    <pre class="code_block"><code>#include &lt;iostream&gt;
+#include "lattice.h"
+        
+int main()
+{
+    // 80次正方行列を基底行列に持つ格子
+    Lattice&lt;int&gt; lat(80, 80);
+        
+    // ランダムなSVP型格子に設定
+    lat.setRandom(80, 80, 1000, 9999);
+            
+    // 双対型DeepLLL基底簡約
+    lat.dualDeepLLL(0.99);
+
+    // 基底行列の表示
+    std::cout &lt;&lt; lat &lt;&lt; std::endl;
+        
+    return 0;
+}</code></pre>
+    <br>
+    <hr style="color: white;">
+    <br>
+    <table>
+        <tr>
+            <th style="width:60px;"><a name="DualPotLLL">宣言</a></th>
+            <td style="color: yellow;">void dualPotLLL(const double delta = 0.75, const bool compute_gso = true);</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">概略</th>
+            <td>
+                双対型PotLLL基底簡約
+                <br>
+                <a href="https://www.iwsec.org/scis/2025/program.html#2D2">A. Sato and M. Yasuda.
+                    自己双対型PotBKZ基底簡約の提案とBKZとの比較.(2025)
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <th style="width:60px;">引数</th>
+            <td>
+                <table>
+                    <tr>
+                        <td><code>delta</code></td>
+                        <td>：</td>
+                        <td>簡約パラメータ（0.75以上1以下）</td>
+                    </tr>
+                    <tr>
+                        <td><code>compute_gso</code></td>
+                        <td>：</td>
+                        <td>簡約する前にGSO情報を更新するか．<br>事前にGSO情報を計算していない場合はtrueにする必要がある</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <th style="width: 40px;">戻り値</th>
+            <td>なし</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">解説</th>
+            <td>
+                格子基底\(\lbrace\boldsymbol{b}_1, \ldots,
+                \boldsymbol{b}_n\rbrace\)を簡約パラメータdeltaに関して双対型PotLLL簡約する関数です．
+            </td>
+        </tr>
+    </table>
+    <h3>サンプル</h3>
+    <pre class="code_block"><code>#include &lt;iostream&gt;
+#include "lattice.h"
+        
+int main()
+{
+    // 80次正方行列を基底行列に持つ格子
+    Lattice&lt;int&gt; lat(80, 80);
+        
+    // ランダムなSVP型格子に設定
+    lat.setRandom(80, 80, 1000, 9999);
+            
+    // 双対型PotLLL基底簡約
+    lat.dualPotLLL(0.99);
+
+    // 基底行列の表示
+    std::cout &lt;&lt; lat &lt;&lt; std::endl;
+        
+    return 0;
+}</code></pre>
+    <br>
+    <hr style="color: white;">
+    <br>
+    <table>
+        <tr>
+            <th style="width:60px;"><a name="DualBKZ">宣言</a></th>
+            <td style="color: yellow;">void dualBKZ(const long beta, const double delta = 0.75, const bool compute_gso =
+                true);</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">概略</th>
+            <td>
+                双対型BKZ基底簡約
+                <br>
+                <a href="https://link.springer.com/chapter/10.1007/978-3-662-49890-3_31">D. Micciancio and M. Walter.
+                    Practical, predictable lattice basis reduction.(2016)</a>
+            </td>
+        </tr>
+        <tr>
+            <th style="width:60px;">引数</th>
+            <td>
+                <table>
+                    <tr>
+                        <td><code>beta</code></td>
+                        <td>：</td>
+                        <td>ブロックサイズ（2以上格子次元以下）</td>
+                    </tr>
+                    <tr>
+                        <td><code>delta</code></td>
+                        <td>：</td>
+                        <td>簡約パラメータ（0.75以上1以下）</td>
+                    </tr>
+                    <tr>
+                        <td><code>compute_gso</code></td>
+                        <td>：</td>
+                        <td>簡約する前にGSO情報を更新するか．<br>事前にGSO情報を計算していない場合はtrueにする必要がある</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <th style="width: 40px;">戻り値</th>
+            <td>なし</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">解説</th>
+            <td>
+                格子基底\(\lbrace\boldsymbol{b}_1, \ldots,
+                \boldsymbol{b}_n\rbrace\)をブロックサイズ<code>beta</code>と簡約パラメータ<code>delta</code>に関して双対型BKZ簡約する関数です．
+            </td>
+        </tr>
+    </table>
+    <h3>サンプル</h3>
+    <pre class="code_block"><code>#include &lt;iostream&gt;
+#include "lattice.h"
+        
+int main()
+{
+    // 80次正方行列を基底行列に持つ格子
+    Lattice&lt;int&gt; lat(80, 80);
+        
+    // ランダムなSVP型格子に設定
+    lat.setRandom(80, 80, 1000, 9999);
+            
+    // 双対型BKZ基底簡約
+    lat.dualBKZ(40, 0.99);
+
+    // 基底行列の表示
+    std::cout &lt;&lt; lat &lt;&lt; std::endl;
+        
+    return 0;
+}</code></pre>
+    <br>
+    <hr style="color: white;">
+    <br>
+    <table>
+        <tr>
+            <th style="width:60px;"><a name="DualDeepBKZ">宣言</a></th>
+            <td style="color: yellow;">void dualDeepBKZ(const long beta, const double delta = 0.75, const bool
+                compute_gso = true);</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">概略</th>
+            <td>
+                双対型DeepBKZ基底簡約
+                <br>
+                <a href="https://link.springer.com/chapter/10.1007/978-3-662-49890-3_31">D. Micciancio and M. Walter.
+                    Practical, predictable lattice basis reduction.(2016)</a>
+            </td>
+        </tr>
+        <tr>
+            <th style="width:60px;">引数</th>
+            <td>
+                <table>
+                    <tr>
+                        <td><code>beta</code></td>
+                        <td>：</td>
+                        <td>ブロックサイズ（2以上格子次元以下）</td>
+                    </tr>
+                    <tr>
+                        <td><code>delta</code></td>
+                        <td>：</td>
+                        <td>簡約パラメータ（0.75以上1以下）</td>
+                    </tr>
+                    <tr>
+                        <td><code>compute_gso</code></td>
+                        <td>：</td>
+                        <td>簡約する前にGSO情報を更新するか．<br>事前にGSO情報を計算していない場合はtrueにする必要がある</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <th style="width: 40px;">戻り値</th>
+            <td>なし</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">解説</th>
+            <td>
+                格子基底\(\lbrace\boldsymbol{b}_1, \ldots,
+                \boldsymbol{b}_n\rbrace\)をブロックサイズ<code>beta</code>と簡約パラメータ<code>delta</code>に関して双対型BKZ簡約する関数です．
+            </td>
+        </tr>
+    </table>
+    <h3>サンプル</h3>
+    <pre class="code_block"><code>#include &lt;iostream&gt;
+#include "lattice.h"
+    
+int main()
+{
+    // 80次正方行列を基底行列に持つ格子
+    Lattice&lt;int&gt; lat(80, 80);
+    
+    // ランダムなSVP型格子に設定
+    lat.setRandom(80, 80, 1000, 9999);
+        
+    // 双対型DeepBKZ基底簡約
+    lat.dualDeepBKZ(40, 0.99);
+
+    // 基底行列の表示
+    std::cout &lt;&lt; lat &lt;&lt; std::endl;
+    
+    return 0;
+}</code></pre>
+    <br>
+    <hr style="color: white;">
+    <br>
+    <table>
+        <tr>
+            <th style="width:60px;"><a name="ENUM">宣言</a></th>
+            <td style="color: yellow;">std::vector<long> Lattice<T>::ENUM(double R);</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">概略</th>
+            <td>
+                格子上の最短ベクトルの数え上げ
+                <br>
+                <a href="https://link.springer.com/chapter/10.1007/978-3-642-13190-5_13">N. Gama and P. Q. Nguyen and O.
+                    Regev(2010)</a>
+            </td>
+        </tr>
+        <tr>
+            <th style="width:60px;">引数</th>
+            <td>
+                <table>
+                    <tr>
+                        <td><code>R</code></td>
+                        <td>：</td>
+                        <td>探索半径</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <th style="width: 40px;">戻り値</th>
+            <td>なし</td>
+        </tr>
+        <tr>
+            <th style="width:60px;">解説</th>
+            <td>
+                探索半径\(R>0\)以下の格子ベクトルを数え上げ，格子\(L\)上の最短ベクトルを求めますぅ．ただし，\(R>0\)以下の格子ベクトルが存在しないときは零ベクトルを返します．<br>なお，``ENUM``が返すのは，正確には格子ベクトルではなく，格子ベクトルの係数ベクトルであり，格子ベクトルを知りたい場合は<a
+                    href="fund.html#mulVecBasis">mulVecBasis</a>関数を使う必要があります．
+            </td>
+        </tr>
+    </table>
+    <h3>サンプル</h3>
+    <pre class="code_block"><code>#include &lt;iostream&gt;
+#include "lattice.h"
+    
+int main()
+{
+    // 80次正方行列を基底行列に持つ格子
+    Lattice&lt;int&gt; lat(80, 80);
+    
+    // ランダムなSVP型格子に設定
+    lat.setRandom(80, 80, 1000, 9999);
+    
+    // GSOを計算
+    lat.computeGSO();
+
+    // 最短ベクトルの係数ベクトル
+    std::vector<long> v = lat.ENUM(100);
+
+    // 最短ベクトルの表示
+    std::cout &lt;&lt; lat.mulVecBasis(v) &lt;&lt; std::endl;
+    
+    return 0;
+}</code></pre>
+    <br>
+    <hr style="color: white;">
+    <br>
+    <p><a href="index.html">戻る</a></p>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <footer style="text-align: center;">
+        <p>Copyright © 2024 さとしん All Rights Reserved.</p>
+    </footer>
+</body>
+
+</html>

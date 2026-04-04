@@ -1,0 +1,22 @@
+
+================================================================================
+SVP Algorithms Hyperparameter Optimization Comparison Report
+================================================================================
+Generated at: 2026-02-06 15:22:47
+
+
+
+============================================================
+DIMENSION 80
+============================================================
+
+Algorithm       Best Parameters                Objective    Directory
+--------------- ------------------------------ ------------ ----------------------------------------
+deepBKZ         FAILED                         N/A          N/A
+deepLLL         delta=0.944                    0.0343       ./opt_results/deepLLL_dim80_20260206_124012
+potLLL          delta=0.802                    0.0476       ./opt_results/potLLL_dim80_20260206_124339
+dualDeepLLL     delta=0.930                    0.0046       ./opt_results/dualDeepLLL_dim80_20260206_124554
+dualPotLLL      delta=0.552                    0.0000       ./opt_results/dualPotLLL_dim80_20260206_125409
+BKZ             beta=19.000, delta=0.896       0.0307       ./opt_results/BKZ_dim80_20260206_125632
+potBKZ          beta=11.000, delta=0.998       0.0000       ./opt_results/potBKZ_dim80_20260206_140335
+dualDeepBKZ     beta=52.000, delta=0.976       0.0164       ./opt_results/dualDeepBKZ_dim80_20260206_145243

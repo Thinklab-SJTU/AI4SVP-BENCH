@@ -1,0 +1,73 @@
+a:link {
+    color: #b8f0ff;
+    text-decoration: underline;
+}
+
+a:visited {
+    color: #9eb8ff;
+    text-decoration: underline;
+}
+
+body {
+    background-color: #000000;
+}
+
+p {
+    color: #ffffff;
+}
+
+h1 {
+    color: #ffffff;
+}
+
+h2 {
+    color: #ffffff;
+}
+
+h3 {
+    color: #ffffff;
+}
+
+ul {
+    color: #ffffff;
+}
+
+th {
+    text-align: left;
+    color: #ffffff;
+    vertical-align: top;
+}
+
+b {
+    color: #ffffff;
+}
+
+tr {
+    color: #ffffff;
+    vertical-align: top;
+}
+
+video {
+    width: 92%;
+    max-width: 400px;
+}
+
+td {
+    color: #ffffff;
+    vertical-align: top;
+}
+
+table {
+    border: none;
+    vertical-align: top;
+}
+
+.code_block {
+    margin: 1em 0;
+    padding: 1em;
+    border-radius: 5px;
+    background: #25292f;
+    color: #fff;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}

@@ -1,0 +1,38 @@
+
+================================================================================
+SVP Algorithms Hyperparameter Optimization Comparison Report
+================================================================================
+Generated at: 2026-02-04 01:16:30
+
+
+
+============================================================
+DIMENSION 60
+============================================================
+
+Algorithm       Best Parameters                Objective    Directory
+--------------- ------------------------------ ------------ ----------------------------------------
+deepLLL         delta=0.844                    0.0898       ./opt_results/deepLLL_dim60_20260203_210734
+potLLL          delta=0.882                    0.0704       ./opt_results/potLLL_dim60_20260203_210953
+dualDeepLLL     delta=0.854                    0.0480       ./opt_results/dualDeepLLL_dim60_20260203_211206
+dualPotLLL      delta=0.829                    0.0705       ./opt_results/dualPotLLL_dim60_20260203_211432
+BKZ             beta=28.000, delta=0.988       0.0312       ./opt_results/BKZ_dim60_20260203_211647
+deepBKZ         FAILED                         N/A          N/A
+potBKZ          beta=22.000, delta=0.995       0.0100       ./opt_results/potBKZ_dim60_20260203_220517
+dualDeepBKZ     beta=60.000, delta=0.737       0.0254       ./opt_results/dualDeepBKZ_dim60_20260203_222414
+
+
+============================================================
+DIMENSION 80
+============================================================
+
+Algorithm       Best Parameters                Objective    Directory
+--------------- ------------------------------ ------------ ----------------------------------------
+deepLLL         delta=0.884                    0.0443       ./opt_results/deepLLL_dim80_20260203_222632
+potLLL          delta=0.573                    0.0898       ./opt_results/potLLL_dim80_20260203_222920
+dualDeepLLL     delta=0.874                    0.0024       ./opt_results/dualDeepLLL_dim80_20260203_223138
+dualPotLLL      delta=0.868                    0.1074       ./opt_results/dualPotLLL_dim80_20260203_223956
+BKZ             beta=15.000, delta=1.000       0.1198       ./opt_results/BKZ_dim80_20260203_224225
+deepBKZ         beta=22.000, delta=0.550       0.1733       ./opt_results/deepBKZ_dim80_20260203_234232
+potBKZ          beta=7.000, delta=0.990        0.0000       ./opt_results/potBKZ_dim80_20260204_004940
+dualDeepBKZ     beta=50.000, delta=0.837       0.0284       ./opt_results/dualDeepBKZ_dim80_20260204_011216

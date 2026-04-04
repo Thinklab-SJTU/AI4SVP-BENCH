@@ -1,0 +1,14 @@
+{
+  "algorithm": "potBKZ",
+  "dimension": 40,
+  "seed": 9,
+  "timestamp": "2026-02-02T18:12:21.100601",
+  "best_params": {
+    "beta": 6.0,
+    "delta": 0.9849418624958776
+  },
+  "best_time": 0.010787010192871094,
+  "best_norm": 1747.2847506917697,
+  "best_objective": 0.20044511886697017,
+  "total_evaluations": 40
+}

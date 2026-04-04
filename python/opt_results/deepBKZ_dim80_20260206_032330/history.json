@@ -1,0 +1,231 @@
+{
+  "algorithm": "deepBKZ",
+  "dimension": 80,
+  "seed": 0,
+  "objective_weights": {
+    "time": 0.1,
+    "norm": 0.9
+  },
+  "evaluations": [
+    {
+      "iteration": 1,
+      "params": {
+        "beta": 45.0,
+        "delta": 0.9585484266281128
+      },
+      "time": Infinity,
+      "norm": Infinity,
+      "objective": 10.0,
+      "timestamp": 1770320010.650206
+    },
+    {
+      "iteration": 2,
+      "params": {
+        "beta": 9.0,
+        "delta": 0.6500394344329834
+      },
+      "time": 6.849998235702515,
+      "norm": 3226.156071860132,
+      "objective": 1.0,
+      "timestamp": 1770320020.9140534
+    },
+    {
+      "iteration": 3,
+      "params": {
+        "beta": 40.0,
+        "delta": 0.8505436182022095
+      },
+      "time": Infinity,
+      "norm": Infinity,
+      "objective": 10.0,
+      "timestamp": 1770320621.0375903
+    },
+    {
+      "iteration": 4,
+      "params": {
+        "beta": 73.0,
+        "delta": 0.5418497920036316
+      },
+      "time": Infinity,
+      "norm": Infinity,
+      "objective": 10.0,
+      "timestamp": 1770321221.1602654
+    },
+    {
+      "iteration": 5,
+      "params": {
+        "beta": 65.0,
+        "delta": 0.7997584342956543
+      },
+      "time": Infinity,
+      "norm": Infinity,
+      "objective": 10.0,
+      "timestamp": 1770321821.2858076
+    },
+    {
+      "iteration": 6,
+      "params": {
+        "beta": 30.0,
+        "delta": 0.6238921880722046
+      },
+      "time": Infinity,
+      "norm": Infinity,
+      "objective": 10.0,
+      "timestamp": 1770322421.4092917
+    },
+    {
+      "iteration": 7,
+      "params": {
+        "beta": 21.0,
+        "delta": 0.8765048980712891
+      },
+      "time": Infinity,
+      "norm": Infinity,
+      "objective": 10.0,
+      "timestamp": 1770323021.5362864
+    },
+    {
+      "iteration": 8,
+      "params": {
+        "beta": 54.0,
+        "delta": 0.7008238434791565
+      },
+      "time": Infinity,
+      "norm": Infinity,
+      "objective": 10.0,
+      "timestamp": 1770323621.6200588
+    },
+    {
+      "iteration": 9,
+      "params": {
+        "beta": 4.0,
+        "delta": 0.6398507282735241
+      },
+      "time": 3.0501935482025146,
+      "norm": 3367.862823809782,
+      "objective": 0.9,
+      "timestamp": 1770323630.653515
+    },
+    {
+      "iteration": 10,
+      "params": {
+        "beta": 9.0,
+        "delta": 0.6480714798695866
+      },
+      "time": 10.685324907302856,
+      "norm": 3052.9634783272463,
+      "objective": 0.1,
+      "timestamp": 1770323644.009103
+    },
+    {
+      "iteration": 11,
+      "params": {
+        "beta": 9.0,
+        "delta": 0.6287414934888211
+      },
+      "time": 8.364069938659668,
+      "norm": 3326.6092346411833,
+      "objective": 0.8516926347053333,
+      "timestamp": 1770323655.0844083
+    },
+    {
+      "iteration": 12,
+      "params": {
+        "beta": 8.0,
+        "delta": 0.6332548710020993
+      },
+      "time": 9.418053150177002,
+      "norm": 3175.785257223794,
+      "objective": 0.434433632455052,
+      "timestamp": 1770323667.0778556
+    },
+    {
+      "iteration": 13,
+      "params": {
+        "beta": 3.0,
+        "delta": 0.8314249740824302
+      },
+      "time": 2.8333418369293213,
+      "norm": 2778.890246123441,
+      "objective": 0.0,
+      "timestamp": 1770323675.3779485
+    },
+    {
+      "iteration": 14,
+      "params": {
+        "beta": 8.0,
+        "delta": 0.6428804218217498
+      },
+      "time": 10.80835509300232,
+      "norm": 2766.3524721191984,
+      "objective": 0.1,
+      "timestamp": 1770323688.753913
+    },
+    {
+      "iteration": 15,
+      "params": {
+        "beta": 6.0,
+        "delta": 0.6343511547311425
+      },
+      "time": 4.027033805847168,
+      "norm": 3458.7895281442034,
+      "objective": 0.9149678994954503,
+      "timestamp": 1770323695.4563582
+    },
+    {
+      "iteration": 16,
+      "params": {
+        "beta": 6.0,
+        "delta": 0.6751504847973601
+      },
+      "time": 4.759576320648193,
+      "norm": 3274.8439657485974,
+      "objective": 0.6850688142220563,
+      "timestamp": 1770323702.9569077
+    },
+    {
+      "iteration": 17,
+      "params": {
+        "beta": 3.0,
+        "delta": 0.9694238222519067
+      },
+      "time": Infinity,
+      "norm": Infinity,
+      "objective": 10.0,
+      "timestamp": 1770324305.9198642
+    },
+    {
+      "iteration": 18,
+      "params": {
+        "beta": 3.0,
+        "delta": 0.8325903530683222
+      },
+      "time": 1.2276878356933594,
+      "norm": 2813.5449170041697,
+      "objective": 0.061338716677433895,
+      "timestamp": 1770324310.545197
+    },
+    {
+      "iteration": 19,
+      "params": {
+        "beta": 6.0,
+        "delta": 0.8153263412260277
+      },
+      "time": 4.051861047744751,
+      "norm": 2930.385298898423,
+      "objective": 0.24268067023568396,
+      "timestamp": 1770324317.167713
+    },
+    {
+      "iteration": 20,
+      "params": {
+        "beta": 3.0,
+        "delta": 0.9952245343088484
+      },
+      "time": 22.028377294540405,
+      "norm": 2549.656839655094,
+      "objective": 0.1,
+      "timestamp": 1770324341.8147502
+    }
+  ]
+}

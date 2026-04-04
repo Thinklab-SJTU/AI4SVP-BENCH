@@ -1,0 +1,14 @@
+{
+  "algorithm": "L2",
+  "dimension": 40,
+  "seed": 0,
+  "timestamp": "2026-02-01T20:40:48.941309",
+  "best_params": {
+    "eta": 0.8114638328552246,
+    "delta": 0.9486613273620605
+  },
+  "best_time": 0.0006611347198486328,
+  "best_norm": 1881.014885640196,
+  "best_objective": 0.7,
+  "total_evaluations": 16
+}
