@@ -179,51 +179,14 @@ Results saved to `opt_results/<algorithm>_dim<d>_<timestamp>/`.
 
 ---
 
-## 5. AI4Enum — RL-guided ENUM
-
-A PPO agent learns to guide the ENUM coefficient search. Uses curriculum
-learning (search radius decays from 3.6×10⁸ → 4×10⁶ over 400 episodes) to
-provide a dense reward signal.
-
-### 5.1 Train
-
-```bash
-python train_rl_enum.py
-# Trains 500 episodes on dim=40 SVP challenges (seeds 0–4)
-# Saves checkpoints to checkpoints/rl_enum_ep*.pt
-```
-
-### 5.2 Evaluate
-
-```bash
-python test_rl_model.py \
-    --checkpoint checkpoints/rl_enum_ep500.pt \
-    --dims 40 \
-    --seeds 0 1 2 3 4 \
-    --radius 4e6 \
-    --max_steps 3000 \
-    --enum_timeout 10
-```
-
-| Argument | Default | Description |
-|----------|---------|-------------|
-| `--checkpoint` | `checkpoints/rl_enum_ep500.pt` | Model checkpoint |
-| `--dims` | `[40]` | Dimensions to evaluate |
-| `--seeds` | `[0,1,2]` | SVP challenge seeds |
-| `--radius` | `4e6` | ENUM search radius |
-| `--max_steps` | `3000` | Max RL steps per episode |
-| `--enum_timeout` | `10` | Timeout (s) for exhaustive C++ ENUM reference |
-
----
-
-## 6. AI4BKZ — RL-guided BKZ
+## 5. AI4BKZ — RL-guided BKZ
 
 A PPO agent adaptively selects the BKZ block size β ∈ {10,15,20,25,30,35,40}
 at each tour based on the current GS-norm profile. Uses fpylll BKZ2.0 as the
 underlying executor. Trained jointly on dim=40 and dim=50; generalises to
 dim=60 without retraining.
 
-### 6.1 Train
+### 5.1 Train
 
 ```bash
 python train_rl_bkz.py --episodes 500
@@ -236,7 +199,7 @@ Resume from a checkpoint:
 python train_rl_bkz.py --episodes 500 --checkpoint checkpoints_bkz/rl_bkz_ep250.pt
 ```
 
-### 6.2 Evaluate
+### 5.2 Evaluate
 
 ```bash
 python test_rl_bkz.py \
@@ -256,6 +219,43 @@ python test_rl_bkz.py \
 | Fixed β=40 (strong baseline) | 2082.03 | 16.87s | — |
 
 RL achieves norm quality close to β=40 while being **~10× faster**.
+
+---
+
+## 6. AI4Enum — RL-guided ENUM
+
+A PPO agent learns to guide the ENUM coefficient search. Uses curriculum
+learning (search radius decays from 3.6×10⁸ → 4×10⁶ over 400 episodes) to
+provide a dense reward signal.
+
+### 6.1 Train
+
+```bash
+python train_rl_enum.py
+# Trains 500 episodes on dim=40 SVP challenges (seeds 0–4)
+# Saves checkpoints to checkpoints/rl_enum_ep*.pt
+```
+
+### 6.2 Evaluate
+
+```bash
+python test_rl_model.py \
+    --checkpoint checkpoints/rl_enum_ep500.pt \
+    --dims 40 \
+    --seeds 0 1 2 3 4 \
+    --radius 4e6 \
+    --max_steps 3000 \
+    --enum_timeout 10
+```
+
+| Argument | Default | Description |
+|----------|---------|-------------|
+| `--checkpoint` | `checkpoints/rl_enum_ep500.pt` | Model checkpoint |
+| `--dims` | `[40]` | Dimensions to evaluate |
+| `--seeds` | `[0,1,2]` | SVP challenge seeds |
+| `--radius` | `4e6` | ENUM search radius |
+| `--max_steps` | `3000` | Max RL steps per episode |
+| `--enum_timeout` | `10` | Timeout (s) for exhaustive C++ ENUM reference |
 
 ---
 
