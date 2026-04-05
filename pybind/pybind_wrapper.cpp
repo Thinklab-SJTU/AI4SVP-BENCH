@@ -7,15 +7,15 @@
 #include "enum_state.h"
 namespace py = pybind11;
 
-// 绑定 Lattice<int> 类（匹配原始C++代码）
+// Bind the Lattice<int> class (matching the original C++ code)
 void bind_lattice_int(py::module &m) {
-    // 使用原始C++代码中的 Lattice<int>
+    // Using Lattice<int> from the original C++ code
     py::class_<Lattice<int>, std::shared_ptr<Lattice<int>>>(m, "LatticeInt")
         .def(py::init<long, long>(), 
              py::arg("n"), py::arg("m"),
              "Create a lattice with n rows and m columns (int version)")
         
-        // 暴露需要的方法
+        // Expose required methods
         .def("numRows", &Lattice<int>::numRows,
              "Get number of rows (dimension)")
         .def("numCols", &Lattice<int>::numCols,
@@ -36,17 +36,17 @@ void bind_lattice_int(py::module &m) {
              py::arg("p"), py::arg("q"),
              "Set Goldstein-Mayer lattice")
         
-        // 算法
+        // Algorithms
         .def("ENUM", &Lattice<int>::ENUM,
              py::arg("R"),
              "Run enumeration algorithm with radius R")
         
-        // 向量操作
+        // Vector operations
         .def("mulVecBasis", &Lattice<int>::mulVecBasis,
              py::arg("coeff_vector"),
              "Multiply coefficient vector with basis")
         
-        // 指标计算
+        // Index calculations
         .def("b1Norm", &Lattice<int>::b1Norm,
              "Get norm of first basis vector")
         
@@ -118,7 +118,7 @@ void bind_lattice_int(py::module &m) {
              py::arg("target"),
              "Babai's nearest plane algorithm")
         
-        // 设置最大循环次数
+        // Set maximum loop count
         .def("setMaxLoop", &Lattice<int>::setMaxLoop,
              py::arg("max_loop"),
              "Set maximum loop count for BKZ")
@@ -133,13 +133,13 @@ void bind_lattice_int(py::module &m) {
         }, "Create RL wrapper for this lattice")*/
         .def("__str__", [](Lattice<int> &lat) {
             std::ostringstream oss;
-            oss << lat;  // 调用原始的 operator<<
+            oss << lat;  // Call the original operator<<
             return oss.str();
         });
 }
 
 
-// 绑定 Lattice<double> 类（如果需要）
+// Bind the Lattice<double> class (if needed)
 void bind_lattice_double(py::module &m) {
     py::class_<Lattice<double>>(m, "LatticeDouble")
         .def(py::init<long, long>())
@@ -156,16 +156,16 @@ void bind_lattice_double(py::module &m) {
             return "<LatticeDouble object>";
         });
 }
-// 在原有的绑定代码中添加RL_ENUM_Wrapper的绑定
+// Add RL_ENUM_Wrapper binding to the existing binding code
 
-// 绑定EnumState
+// Bind EnumState
 
-// 创建Lattice<int>对象的辅助函数
+// Helper function for creating Lattice<int> objects
 std::shared_ptr<Lattice<int>> create_lattice_int(int n, int m) {
     return std::make_shared<Lattice<int>>(n, m);
 }
 
-// 创建Lattice<double>对象的辅助函数
+// Helper function for creating Lattice<double> objects
 std::shared_ptr<Lattice<double>> create_lattice_double(int n, int m) {
     return std::make_shared<Lattice<double>>(n, m);
 }
@@ -173,10 +173,10 @@ std::shared_ptr<Lattice<double>> create_lattice_double(int n, int m) {
 PYBIND11_MODULE(lattice_env, m) {
     m.doc() = "Lattice algorithms for SVP with Python bindings";
     
-    // 绑定 Lattice<int> - 主要使用这个，匹配原始C++代码
+    // Bind Lattice<int> - use this primarily, matches original C++ code
     bind_lattice_int(m);
     
-    // 可选：绑定 Lattice<double>
+    // Optional: Bind Lattice<double>
     bind_lattice_double(m);
     
     py::class_<EnumState>(m, "EnumState")
@@ -196,7 +196,7 @@ PYBIND11_MODULE(lattice_env, m) {
         .def_readwrite("terminated", &EnumState::terminated)
         .def_readwrite("found_solution", &EnumState::found_solution);
 
-// 绑定RL_ENUM_Wrapper
+// Bind RL_ENUM_Wrapper
     py::class_<RL_ENUM_Wrapper>(m, "RL_ENUM_Wrapper")
         .def(py::init<std::shared_ptr<Lattice<int>>>(),
              py::arg("lattice"),
@@ -221,7 +221,7 @@ PYBIND11_MODULE(lattice_env, m) {
         .def("__str__", [](RL_ENUM_Wrapper& wrapper) {
             std::ostringstream oss;
             
-            // 获取向量
+            // Get vector
             auto coeffs = wrapper.get_best_coeffs();
             
             if (coeffs.empty()) {
@@ -229,10 +229,10 @@ PYBIND11_MODULE(lattice_env, m) {
                 return oss.str();
             }
             
-            // 模仿Lattice的输出格式
+            // Mimic Lattice output format
             oss << "[" << std::endl;
             
-            // 如果是多维向量，逐行输出
+            // If multi-dimensional vector, output row by row
             if (coeffs.size() > 1) {
                 oss << "[";
                 for (size_t i = 0; i < coeffs.size(); ++i) {
@@ -241,7 +241,7 @@ PYBIND11_MODULE(lattice_env, m) {
                 }
                 oss << "]" << std::endl;
             } else {
-                // 单行输出
+                // Single line output
                 oss << "[";
                 for (size_t i = 0; i < coeffs.size(); ++i) {
                     oss << coeffs[i];
@@ -253,7 +253,7 @@ PYBIND11_MODULE(lattice_env, m) {
             oss << "]";
             return oss.str();
         });
-    // 绑定Config
+    // Bind Config
     /*py::class_<PyLatticeEnv::Config>(m, "Config")
         .def(py::init<>())
         .def_readwrite("max_dimension", &PyLatticeEnv::Config::max_dimension)
@@ -261,13 +261,13 @@ PYBIND11_MODULE(lattice_env, m) {
         .def_readwrite("use_pruning", &PyLatticeEnv::Config::use_pruning)
         .def_readwrite("max_steps", &PyLatticeEnv::Config::max_steps);
     
-    // 绑定PyLatticeEnv - 修改为使用Lattice<int>
+    // Bind PyLatticeEnv - modified to use Lattice<int>
     py::class_<PyLatticeEnv>(m, "LatticeEnv")
         .def(py::init<std::shared_ptr<Lattice<int>>>(),
              py::arg("lattice"),
              "Create environment from LatticeInt object")
         
-        // 环境控制
+        // Environment control
         .def("reset", &PyLatticeEnv::reset,
              py::arg("R") = 100.0,
              "Reset the environment with given radius R")
@@ -282,19 +282,19 @@ PYBIND11_MODULE(lattice_env, m) {
         .def("print_debug", &PyLatticeEnv::print_debug_info,
              "Print debug information")
         
-        // 属性访问
+        // Property access
         .def_property_readonly("dimension", &PyLatticeEnv::get_dimension)
         .def_property_readonly("best_norm", &PyLatticeEnv::get_best_norm)
         .def_property_readonly("solved", &PyLatticeEnv::is_solved)
         .def_property_readonly("current_k", &PyLatticeEnv::get_current_k)
         .def_property_readonly("current_rho", &PyLatticeEnv::get_current_rho)
         
-        // 配置
+        // Configuration
         .def("set_config", &PyLatticeEnv::set_config,
              py::arg("config"),
              "Set environment configuration");*/
     
-    // 辅助函数
+    // Helper functions
     m.def("create_lattice_int", &create_lattice_int,
           py::arg("n"), py::arg("m"),
           "Create a new Lattice<int> object (int version)");
@@ -303,7 +303,7 @@ PYBIND11_MODULE(lattice_env, m) {
           py::arg("n"), py::arg("m"),
           "Create a new Lattice<double> object (double version)");
     
-    // 为了向后兼容，也保留旧的函数名（但创建的是int版本）
+    // For backward compatibility, keep old function name (but creates int version)
     m.def("create_lattice", [](int n, int m) -> std::shared_ptr<Lattice<int>> {
         auto lattice = std::make_shared<Lattice<int>>(n, m);
         std::cout << "Created lattice " << n << "x" << m 
@@ -311,7 +311,7 @@ PYBIND11_MODULE(lattice_env, m) {
         return lattice;
     }, py::arg("n"), py::arg("m"), "Create Lattice<int> object");
     
-    // 向量范数计算函数
+    // Vector norm calculation function
     m.def("vector_norm", [](const std::vector<int>& v) {
         double sum = 0.0;
         for (const auto& x : v) {
@@ -328,7 +328,7 @@ PYBIND11_MODULE(lattice_env, m) {
         return std::sqrt(sum);
     }, py::arg("v"), "Compute Euclidean norm of double vector");
     
-    // 常量
+    // Constants
     m.attr("__version__") = "0.1.0";
     m.attr("DEFAULT_ACTION_RANGE") = py::int_(5);
     m.attr("MAX_DIMENSION") = py::int_(200);

@@ -33,24 +33,24 @@ class EnumEnvironment:
         state_obj = self.wrapper.get_state()
         
         # Extract fixed-dimension features
-        return self.extract_enum_features(state_obj)  # 注意：使用self.而不是state_obj.
+        return self.extract_enum_features(state_obj)  # Note: use self. instead of state_obj.
     
     def step(self, action):
         """Execute one step"""
         self.step_count += 1
         
         # Action mapping: 0-10 -> -5 to +5
-        # 注意：C++的decode_action期望的是偏移量，所以需要映射
-        offset_action = action - 5  # 将0-10映射到-5到+5
+        # Note: C++ decode_action expects an offset, so mapping is required
+        offset_action = action - 5  # Map 0-10 to -5 to +5
         
         # Execute one ENUM step
         reward, done, info_str = self.wrapper.step(offset_action)
         
         # Get new state
         state_obj = self.wrapper.get_state()
-        next_state = self.extract_enum_features(state_obj)  # 注意：使用self.
+        next_state = self.extract_enum_features(state_obj)  # Note: use self.
         
-        # 解析信息并添加额外信息
+        # Parse info and add extra information
         info = {
             'best_norm': state_obj.best_norm,
             'current_k': state_obj.current_k,
@@ -68,12 +68,12 @@ class EnumEnvironment:
         """
         features = []
         
-        # 1. 添加更多安全检查
+        # 1. Add more safety checks
         if not hasattr(state_obj, 'current_k'):
-            # 返回默认特征向量
+            # Return default feature vector
             return np.zeros(self.state_space_dim, dtype=np.float32)
         
-        # 2. 使用更安全的归一化
+        # 2. Use safer normalization
         # Current layer position
         if state_obj.num_rows > 0:
             normalized_k = float(state_obj.current_k) / float(state_obj.num_rows)
@@ -81,10 +81,10 @@ class EnumEnvironment:
             normalized_k = 0.0
         features.append(np.clip(normalized_k, 0.0, 1.0))
         
-        # Current ρ relative value
+        # Current 蟻 relative value
         if state_obj.radius > 0 and state_obj.radius > 1e-8:
             rho_ratio = float(state_obj.current_rho) / float(state_obj.radius)
-            features.append(np.clip(rho_ratio, 0.0, 100.0))  # 限制范围
+            features.append(np.clip(rho_ratio, 0.0, 100.0))  # Restrict range
         else:
             features.append(0.0)
         
@@ -100,7 +100,7 @@ class EnumEnvironment:
         features.append(1.0 if getattr(state_obj, 'has_solution', False) else 0.0)
         features.append(1.0 if getattr(state_obj, 'terminated', False) else 0.0)
         
-        # 3. 当前层信息 - 更安全地处理
+        # 3. Current layer information - handle more safely
         k = int(state_obj.current_k)
         
         # Current center
@@ -136,7 +136,7 @@ class EnumEnvironment:
         else:
             features.append(0.0)
         
-        # μ values
+        # 渭 values
         if hasattr(state_obj, 'mu_values') and state_obj.mu_values:
             try:
                 mu_list = [float(x) for x in state_obj.mu_values]
@@ -150,25 +150,25 @@ class EnumEnvironment:
         else:
             features.append(0.0)
         
-        # 4. 填充剩余特征
-        # 确保特征维度固定为30
+        # 4. Fill remaining features
+        # Ensure feature dimension is fixed at 30
         while len(features) < self.state_space_dim:
             features.append(0.0)
         
-        # 转换为数组
+        # Convert to array
         features_array = np.array(features[:self.state_space_dim], dtype=np.float32)
         
-        # 5. 最终检查和修复
-        # 检查并修复NaN/Inf
+        # 5. Final check and fix
+        # Check and fix NaN/Inf
         if np.any(np.isnan(features_array)) or np.any(np.isinf(features_array)):
             print(f"??  Detected NaN/Inf in features, fixing...")
             features_array = np.nan_to_num(features_array, nan=0.0, posinf=1.0, neginf=-1.0)
         
-        # 归一化特征
+        # Normalize features
         if np.std(features_array) > 0:
             features_array = (features_array - np.mean(features_array)) / (np.std(features_array) + 1e-8)
         
-        # 限制范围
+        # Restrict range
         features_array = np.clip(features_array, -5.0, 5.0)
         
         return features_array

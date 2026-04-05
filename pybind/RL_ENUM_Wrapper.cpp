@@ -16,7 +16,7 @@ RL_ENUM_Wrapper::RL_ENUM_Wrapper(std::shared_ptr<Lattice<int>> lattice)
         throw std::invalid_argument("Lattice pointer cannot be null");
     }
     //std::cout << m_lattice;
-    // 初始化数组大小
+    // Initialize array sizes
     m_num_rows = m_lattice->numRows();
     m_r = std::make_unique<long[]>(m_num_rows + 1);
     m_weight.resize(m_num_rows, 0);
@@ -26,15 +26,15 @@ RL_ENUM_Wrapper::RL_ENUM_Wrapper(std::shared_ptr<Lattice<int>> lattice)
     m_sigma.resize(m_num_rows + 1, std::vector<double>(m_num_rows, 0.0));
     m_rho.resize(m_num_rows + 1, 0.0);
     
-    // 初始化当前状态
+    // Initialize current state
     m_current_state.num_rows = m_num_rows;
     m_current_state.best_norm = std::numeric_limits<double>::max();
 }
 void RL_ENUM_Wrapper::print_current_vectors() const {
-    std::cout << "=== 当前向量信息 ===" << std::endl;
+    std::cout << "=== Current vector info ===" << std::endl;
     
-    // 打印系数向量
-    std::cout << "系数向量temp_vec: [";
+    // Print coefficient vector
+    std::cout << "Coefficient vector temp_vec: [";
     for (long i = 0; i < std::min(10L, m_num_rows); ++i) {
         std::cout << m_temp_vec[i];
         if (i < m_num_rows - 1 && i < 9) std::cout << ", ";
@@ -42,10 +42,10 @@ void RL_ENUM_Wrapper::print_current_vectors() const {
     if (m_num_rows > 10) std::cout << ", ...";
     std::cout << "]" << std::endl;
     
-    // 计算并打印格向量
+    // Compute and print lattice vector
     if (m_lattice) {
         auto lattice_vector = m_lattice->mulVecBasis(m_temp_vec);
-        std::cout << "格向量: [";
+        std::cout << "Lattice vector: [";
         for (size_t i = 0; i < std::min((size_t)10, lattice_vector.size()); ++i) {
             std::cout << lattice_vector[i];
             if (i < lattice_vector.size() - 1 && i < 9) std::cout << ", ";
@@ -53,12 +53,12 @@ void RL_ENUM_Wrapper::print_current_vectors() const {
         if (lattice_vector.size() > 10) std::cout << ", ...";
         std::cout << "]" << std::endl;
         
-        // 计算范数
+        // Compute norm
         double norm_sq = 0.0;
         for (const auto& x : lattice_vector) {
             norm_sq += static_cast<double>(x) * static_cast<double>(x);
         }
-        std::cout << "向量范数: " << std::sqrt(norm_sq) << std::endl;
+        std::cout << "Vector norm: " << std::sqrt(norm_sq) << std::endl;
     }
 }
 void RL_ENUM_Wrapper::reset(double R) {
@@ -68,7 +68,7 @@ void RL_ENUM_Wrapper::reset(double R) {
     m_temp = 0.0;
     m_total_steps = 0;
     //std::cout << m_lattice;
-    // 重置数组
+    // Reset arrays
     std::fill(m_weight.begin(), m_weight.end(), 0);
     std::fill(m_coeff_vector.begin(), m_coeff_vector.end(), 0);
     std::fill(m_temp_vec.begin(), m_temp_vec.end(), 0);
@@ -80,51 +80,51 @@ void RL_ENUM_Wrapper::reset(double R) {
     
     std::fill(m_rho.begin(), m_rho.end(), 0.0);
     
-    // 初始化r数组
+    // Initialize r array
     for (long i = 0; i < m_num_rows; ++i) {
         m_r[i] = i;
     }
     
-    // 关键修复：ENUM从最底层开始，所以k应该初始化为m_num_rows-1
-    // 而不是从0开始
+    // Key fix: ENUM starts from the bottom, so k should be initialized to m_num_rows-1
+    // instead of starting from 0
     m_current_state.current_k = m_num_rows - 1;
     
-    // 关键修复：初始化temp_vec[m_num_rows-1] = 1（而不是temp_vec[0] = 1）
-    // 因为ENUM算法从最底层开始搜索
+    // Key fix: initialize temp_vec[m_num_rows-1] = 1 (instead of temp_vec[0] = 1)
+    // because the ENUM algorithm starts searching from the bottom
     if (m_num_rows > 0) {
         m_temp_vec[m_num_rows - 1] = 1;
     }
     
-    // 重置当前状态
+    // Reset current state
     m_current_state = EnumState();
     m_current_state.num_rows = m_num_rows;
     m_current_state.radius = R;
     m_current_state.best_norm = std::numeric_limits<double>::max();
-    m_current_state.current_k = m_num_rows - 1;  // 重要：从底层开始
+    m_current_state.current_k = m_num_rows - 1;  // Important: start from bottom
     m_current_state.current_rho = 0.0;
     m_current_state.current_center = 0.0;
     m_current_state.has_solution = false;
     
     m_tried_coeffs_history.clear();
     
-    /*std::cout << "RL_ENUM_Wrapper重置完成: R=" << R 
+    /*std::cout << "RL_ENUM_Wrapper reset complete: R=" << R 
               << ", k=" << m_current_state.current_k 
               << ", num_rows=" << m_num_rows << std::endl;*/
 }
 
-// 新增：decode_action实现
+// New: decode_action implementation
 long RL_ENUM_Wrapper::decode_action(long action, double center) const {
-    // 动作解码：将离散动作映射到系数值
-    // action范围通常是[-5, 5]，对应11个离散动作
+    // Action decoding: map discrete action to coefficient value
+    // action range is typically [-5, 5], corresponding to 11 discrete actions
     long base_coeff = static_cast<long>(std::round(center));
     
-    // 确保动作在合理范围内
-    // 这里我们假设action是已经偏移过的值（-5到+5）
-    // 如果需要将[0, 10]映射到[-5, 5]，可以这样处理：
+    // Ensure action is within a reasonable range
+    // We assume action is an already-offset value (-5 to +5)
+    // If you need to map [0, 10] to [-5, 5], it can be done as:
     // long offset = action - 5;
     // long chosen_coeff = base_coeff + offset;
     
-    // 直接使用action作为偏移
+    // Use action directly as offset
     long chosen_coeff = base_coeff + action;
     
     return chosen_coeff;
@@ -132,77 +132,77 @@ long RL_ENUM_Wrapper::decode_action(long action, double center) const {
 double RL_ENUM_Wrapper::calculate_immediate_reward(double prev_rho) {
     double reward = 0.0;
     
-    // 1. 找到解的奖励（大奖励）
+    // 1. Reward for finding a solution (large reward)
     if (m_current_state.found_solution) {
-        // 奖励与解的质量成反比（范数越小奖励越大）
+        // Reward inversely proportional to solution quality (smaller norm -> larger reward)
         double quality_bonus = 1000.0 / (m_current_state.best_norm + 1.0);
         reward += quality_bonus;
     }
     /*if (!m_current_state.found_solution) {
-        // 奖励与解的质量成反比（范数越小奖励越大）
+        // Reward inversely proportional to solution quality (smaller norm -> larger reward)
         double quality_bonus =m_current_state.best_norm/(1e+308);
         reward -= quality_bonus;
     }*/
     
-    // 2. rho值减少的奖励
+    // 2. Reward for decreasing rho
     if (m_current_state.current_rho < prev_rho) {
         double reduction = prev_rho - m_current_state.current_rho;
         double reduction_ratio = reduction / prev_rho;
         reward += 10.0 * reduction_ratio;
     }
     
-    // 3. 进入更深层的奖励（探索）
+    // 3. Reward for going deeper (exploration)
     if (m_current_state.current_k < m_num_rows / 2) {
-        // 进入较深层，奖励探索
+        // Moving to a deeper level, reward exploration
         double depth_bonus = 5.0 * (1.0 - static_cast<double>(m_current_state.current_k) / m_num_rows);
         reward += depth_bonus;
     }
     
-    // 4. 惩罚：rho值超过半径
+    // 4. Penalty: rho exceeds radius
     if (m_current_state.current_rho > m_current_state.radius) {
         double excess_ratio = (m_current_state.current_rho - m_current_state.radius) / m_current_state.radius;
         reward -= 2.0 * excess_ratio;
     }
     
-    // 5. 惩罚：步数消耗（鼓励效率）
+    // 5. Penalty: step cost (encourage efficiency)
     reward -= 0.05;
     
-    // 6. 惩罚：频繁回溯
-    if (m_current_state.current_k > prev_k) {  // 需要记录prev_k
-        // 发生了回溯
+    // 6. Penalty: frequent backtracking
+    if (m_current_state.current_k > prev_k) {  // Need to record prev_k
+        // Backtracking occurred
         reward -= 1.0;
     }
     
     return reward;
 }
 bool RL_ENUM_Wrapper::check_termination() const {
-    // 检查终止条件
+    // Check termination conditions
     
-    // 1. 达到最大步数（如果在配置中设置了）
+    // 1. Maximum steps reached (if set in config)
     // if (m_total_steps >= max_steps) return true;
     
-    // 2. 已经找到解且达到精度要求
+    // 2. Solution found and precision requirement met
     if (m_has_solution) {
-        // 如果当前最佳范数已经足够小
+        // If current best norm is small enough
         if (m_current_state.best_norm < m_current_R * 0.01) {
             return true;
         }
     }
     
-    // 3. 搜索空间已经穷尽（当k == m_num_rows时）
+    // 3. Search space exhausted (when k == m_num_rows)
     if (m_current_state.current_k >= m_num_rows) {
         return true;
     }
     
-    // 4. rho值持续过大，表明当前区域无解
+    // 4. rho consistently too large, indicating no solution in current region
     if (m_current_state.current_rho > m_current_R * 00.0) {
-        // 如果连续多次rho都很大，考虑终止
-        // 这里简化处理：单次过大就终止（可能需要调整）
+        // If rho is large for multiple consecutive steps, consider terminating
+        // Simplified: terminate on single overshoot (may need adjustment)
         return true;
     }
     
-    // 5. 搜索停滞：连续多次没有进展
-    // 可以添加计数器跟踪无进展的步数
+    // 5. Search stagnation: no progress for consecutive steps
+    // A counter can be added to track steps without progress
     
     return false;
 }
@@ -214,23 +214,23 @@ std::tuple<double, bool, std::string> RL_ENUM_Wrapper::step(long action) {
     
     m_total_steps++;
     
-    // 记录上一步的rho值，用于计算变化
+    // Record previous rho value to compute change
     double prev_rho = m_current_state.current_rho;
     
-    // 执行一步ENUM核心逻辑
+    // Execute one step of core ENUM logic
     bool should_terminate = execute_enum_step(action);
     
-    // 更新当前状态
+    // Update current state
     update_state_record();
     
-    // 计算奖励（使用实际的即时奖励计算）
+    // Compute reward (using actual immediate reward calculation)
     double reward = calculate_immediate_reward(prev_rho);
     
-    // 检查是否终止
+    // Check whether to terminate
     bool done = should_terminate || check_termination();
     m_current_state.terminated = done;
     
-    // 生成信息字符串
+    // Generate info string
     std::stringstream info;
     info << "Step: " << m_total_steps 
          << ", k: " << m_current_state.current_k
@@ -251,39 +251,39 @@ bool RL_ENUM_Wrapper::execute_enum_step(long action) {
     std::cout << "temp_vec[" << k << "] = " << m_temp_vec[k] << std::endl;
     std::cout << "center[" << k << "] = " << m_center[k] << std::endl;*/
     
-    // 计算差值
+    // Compute difference
     double diff = static_cast<double>(m_temp_vec[k]) - m_center[k];
     /*std::cout << "diff = " << diff << std::endl;
     std::cout << "diff^2 = " << diff * diff << std::endl;*/
     
-    // 检查m_B[k]
+    // Check m_B[k]
     double B_k = m_lattice->m_B[k];
     //std::cout << "m_B[" << k << "] = " << B_k << std::endl;
     
-    // 计算当前rho
+    // Compute current rho
     m_temp = diff * diff;
     m_rho[k] = m_rho[k + 1] + m_temp * B_k;
     //std::cout << "rho[" << k+1 << "] = " << m_rho[k+1] << std::endl;
     //std::cout << "rho[" << k << "] = " << m_rho[k] << std::endl;
     
-    // 检查sigma和center的计算
+    // Check sigma and center computation
     /*if (k > 0) {
         std::cout << "sigma[" << k+1 << "][" << k << "] = " << m_sigma[k+1][k] << std::endl;
     }*/
     
-    // 检查是否满足半径条件
+    // Check if radius condition is satisfied
     if (m_rho[k] <= m_current_R) {
         if (k == 0) {
-            // 找到解
+            // Solution found
             m_has_solution = true;
             m_current_state.found_solution = true;
             
-            // 更新最佳系数
+            // Update best coefficients
             for (long i = 0; i < m_num_rows; ++i) {
                 m_coeff_vector[i] = m_temp_vec[i];
             }
             
-            // 更新最佳范数
+            // Update best norm
             auto v = m_lattice->mulVecBasis(m_coeff_vector);
             double norm_sq = 0.0;
             for (const auto& x : v) {
@@ -291,14 +291,14 @@ bool RL_ENUM_Wrapper::execute_enum_step(long action) {
             }
             m_current_state.best_norm = std::sqrt(norm_sq);
             
-            // 缩小半径（保持比当前最佳解稍小）
+            // Shrink radius (keep slightly smaller than current best solution)
             if (m_rho[0] > 0) {
                 m_current_R = std::fmin(0.99 * m_rho[0], m_current_R);
             }
             
-            return false; // 继续搜索（可能还有更好的解）
+            return false; // Continue searching (there may be a better solution)
         } else {
-            // 向下走一层
+            // Move down one level
             k--;
             m_current_state.current_k = k;
             
@@ -306,20 +306,20 @@ bool RL_ENUM_Wrapper::execute_enum_step(long action) {
                 m_r[k] = m_r[k + 1];
             }
             
-            // 更新sigma
+            // Update sigma
             update_sigma(k);
             
-            // 更新中心值
+            // Update center value
             update_center(k);
             
-            // 使用RL动作选择系数
+            // Use RL action to select coefficient
             double center_val = m_center[k];
             long chosen_coeff = decode_action(action, center_val);
             
             m_temp_vec[k] = chosen_coeff;
             m_weight[k] = 1;
             
-            // 记录尝试的系数
+            // Record attempted coefficient
             m_tried_coeffs_history.push_back(chosen_coeff);
             if (m_tried_coeffs_history.size() > 100) {
                 m_tried_coeffs_history.erase(m_tried_coeffs_history.begin());
@@ -328,16 +328,16 @@ bool RL_ENUM_Wrapper::execute_enum_step(long action) {
             return false;
         }
     } else {
-        // 回溯
+        // Backtrack
         k++;
         m_current_state.current_k = k;
         
         if (k == m_num_rows) {
-            // 搜索完成
+            // Search complete
             if (!m_has_solution) {
                 std::fill(m_coeff_vector.begin(), m_coeff_vector.end(), 0);
             }
-            return true; // 终止
+            return true; // Terminate
         } else {
             m_r[k] = k;
             
@@ -345,7 +345,7 @@ bool RL_ENUM_Wrapper::execute_enum_step(long action) {
                 m_last_nonzero = k;
                 m_temp_vec[k]++;
             } else {
-                // 使用原始的回溯策略
+                // Use original backtracking strategy
                 if (m_temp_vec[k] > m_center[k]) {
                     m_temp_vec[k] -= m_weight[k];
                 } else {
@@ -354,7 +354,7 @@ bool RL_ENUM_Wrapper::execute_enum_step(long action) {
                 m_weight[k]++;
             }
             
-            // 记录尝试的系数
+            // Record attempted coefficient
             m_tried_coeffs_history.push_back(m_temp_vec[k]);
             if (m_tried_coeffs_history.size() > 100) {
                 m_tried_coeffs_history.erase(m_tried_coeffs_history.begin());
@@ -389,49 +389,49 @@ void RL_ENUM_Wrapper::update_center(long k) {
               << ", center=" << m_center[k] << std::endl;*/
 }
 
-// 新增：计算即时奖励（使用之前rho值进行比较）
+// New: compute immediate reward (using previous rho value for comparison)
 
 
-// 修正：这个函数不再需要，因为我们已经有了calculate_immediate_reward(double prev_rho)
+// Fix: this function is no longer needed, since we already have calculate_immediate_reward(double prev_rho)
 // double RL_ENUM_Wrapper::calculate_reward(bool found_solution, bool backtrack) const {
-//     // 这个函数已弃用，使用calculate_immediate_reward代替
+//     // This function is deprecated, use calculate_immediate_reward instead
 //     return 0.0;
 // }
 
 void RL_ENUM_Wrapper::update_state_record() {
     long k = m_current_state.current_k;
     
-    // 更新当前状态
+    // Update current state
     m_current_state.current_k = k;
     m_current_state.current_rho = m_rho[k];
     m_current_state.current_center = m_center[k];
     m_current_state.radius = m_current_R;
     m_current_state.has_solution = m_has_solution;
     
-    // 更新GSO信息
+    // Update GSO information
     m_current_state.gs_norms.clear();
-    // 注意：这里假设m_lattice的m_B是public或通过getter访问
-    // 实际实现需要根据Lattice类的设计调整
+    // Note: assumes m_lattice's m_B is public or accessible via getter
+    // Actual implementation needs to be adjusted based on Lattice class design
     for (long i = 0; i < m_num_rows; ++i) {
         m_current_state.gs_norms.push_back(m_lattice->m_B[i]);
     }
     
-    // 更新当前层的mu值
+    // Update mu value for current level
     m_current_state.mu_values.clear();
     for (long i = 0; i < m_num_rows; ++i) {
         m_current_state.mu_values.push_back(m_lattice->m_mu[i][k]);
     }
     
-    // 更新尝试的系数历史
+    // Update attempted coefficient history
     m_current_state.tried_coeffs = m_tried_coeffs_history;
     
-    // 更新当前系数
+    // Update current coefficient
     m_current_state.current_coeffs = m_temp_vec;
     
-    // 更新最佳系数
+    // Update best coefficients
     m_current_state.best_coeffs = m_coeff_vector;
     
-    // 更新数组状态
+    // Update array state
     m_current_state.r.assign(m_r.get(), m_r.get() + m_num_rows);
     m_current_state.weight = m_weight;
     m_current_state.center_array = m_center;
@@ -442,7 +442,7 @@ void RL_ENUM_Wrapper::update_state_record() {
 EnumState RL_ENUM_Wrapper::get_state() const {
     EnumState state = m_current_state;
     
-    // 确保状态是最新的
+    // Ensure state is up to date
     state.current_k = m_current_state.current_k;
     state.current_rho = m_rho[state.current_k];
     state.current_center = m_center[state.current_k];
@@ -450,13 +450,13 @@ EnumState RL_ENUM_Wrapper::get_state() const {
     state.has_solution = m_has_solution;
     state.best_norm = m_current_state.best_norm;
     
-    // 填充GSO信息
+    // Fill in GSO information
     state.gs_norms.clear();
     for (long i = 0; i < m_num_rows; ++i) {
         state.gs_norms.push_back(m_lattice->m_B[i]);
     }
     
-    // 填充当前层的mu值
+    // Fill in mu values for current level
     state.mu_values.clear();
     long k = state.current_k;
     if (k >= 0 && k < m_num_rows) {
@@ -465,10 +465,10 @@ EnumState RL_ENUM_Wrapper::get_state() const {
         }
     }
     
-    // 填充尝试的系数
+    // Fill in attempted coefficients
     state.tried_coeffs = m_tried_coeffs_history;
     
-    // 填充当前系数
+    // Fill in current coefficient
     state.current_coeffs = m_temp_vec;
     
     return state;
@@ -478,9 +478,9 @@ std::vector<long> RL_ENUM_Wrapper::get_best_coeffs() const {
     return m_coeff_vector;
 }
 
-// 新增：get_best_vector实现
+// New: get_best_vector implementation
 std::vector<int> RL_ENUM_Wrapper::get_best_vector() const {
-    // 调用lattice的mulVecBasis方法
+    // Call lattice's mulVecBasis method
     return m_lattice->mulVecBasis(m_coeff_vector);
 }
 
@@ -488,25 +488,25 @@ bool RL_ENUM_Wrapper::is_terminated() const {
     return m_current_state.terminated;
 }
 
-// 新增：get_statistics实现
+// New: get_statistics implementation
 RL_ENUM_Wrapper::Statistics RL_ENUM_Wrapper::get_statistics() const {
     Statistics stats;
     stats.total_steps = m_total_steps;
     stats.best_norm = m_current_state.best_norm;
     
-    // 计算回溯次数（简单估计：k值增加的次数）
-    // 需要记录历史，这里简化处理
-    stats.backtracks = 0;  // 实际实现需要跟踪
+    // Compute backtrack count (simple estimate: number of times k increases)
+    // Requires history recording; simplified here
+    stats.backtracks = 0;  // Actual implementation requires tracking
     
     stats.solutions_found = m_has_solution ? 1 : 0;
     
-    // rho历史（记录最近一些值）
-    // 实际实现需要维护rho历史数组
+    // rho history (record recent values)
+    // Actual implementation needs to maintain a rho history array
     
     return stats;
 }
 
-// 新增：compute_rho实现（如果需要）
+// New: compute_rho implementation (if needed)
 double RL_ENUM_Wrapper::compute_rho(long k) const {
     if (k < 0 || k >= m_num_rows) return 0.0;
     
