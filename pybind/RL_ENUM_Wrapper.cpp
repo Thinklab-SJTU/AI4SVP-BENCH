@@ -10,7 +10,8 @@ RL_ENUM_Wrapper::RL_ENUM_Wrapper(std::shared_ptr<Lattice<int>> lattice)
       m_current_R(0.0), m_has_solution(false),
       m_last_nonzero(0), m_temp(0.0),
       m_total_steps(0), prev_k(-1),
-      backtrack_count(0), solution_count(0) {
+      backtrack_count(0), solution_count(0),
+      m_episode_best_norm(std::numeric_limits<double>::max()) {
     
     if (!m_lattice) {
         throw std::invalid_argument("Lattice pointer cannot be null");
@@ -104,7 +105,13 @@ void RL_ENUM_Wrapper::reset(double R) {
     m_current_state.current_rho = 0.0;
     m_current_state.current_center = 0.0;
     m_current_state.has_solution = false;
-    
+
+    // Reset tracking variables
+    prev_k = m_num_rows - 1;
+    backtrack_count = 0;
+    solution_count = 0;
+    m_episode_best_norm = std::numeric_limits<double>::max();
+
     m_tried_coeffs_history.clear();
     
     /*std::cout << "RL_ENUM_Wrapper reset complete: R=" << R 
@@ -131,79 +138,45 @@ long RL_ENUM_Wrapper::decode_action(long action, double center) const {
 }
 double RL_ENUM_Wrapper::calculate_immediate_reward(double prev_rho) {
     double reward = 0.0;
-    
-    // 1. Reward for finding a solution (large reward)
-    if (m_current_state.found_solution) {
-        // Reward inversely proportional to solution quality (smaller norm -> larger reward)
-        double quality_bonus = 1000.0 / (m_current_state.best_norm + 1.0);
-        reward += quality_bonus;
+    long curr_k = m_current_state.current_k;
+
+    // 1. Reward for finding a NEW best (shorter) vector — delta-based
+    if (m_current_state.found_solution &&
+        m_current_state.best_norm < m_episode_best_norm - 1e-6) {
+        double improvement_ratio = (m_episode_best_norm - m_current_state.best_norm)
+                                   / m_episode_best_norm;
+        reward += 500.0 * improvement_ratio;
+        m_episode_best_norm = m_current_state.best_norm;
     }
-    /*if (!m_current_state.found_solution) {
-        // Reward inversely proportional to solution quality (smaller norm -> larger reward)
-        double quality_bonus =m_current_state.best_norm/(1e+308);
-        reward -= quality_bonus;
-    }*/
-    
-    // 2. Reward for decreasing rho
-    if (m_current_state.current_rho < prev_rho) {
-        double reduction = prev_rho - m_current_state.current_rho;
-        double reduction_ratio = reduction / prev_rho;
-        reward += 10.0 * reduction_ratio;
+
+    // 2. Small reward for descending to a deeper level (efficient tree traversal)
+    if (curr_k < prev_k) {
+        reward += 0.5;
     }
-    
-    // 3. Reward for going deeper (exploration)
-    if (m_current_state.current_k < m_num_rows / 2) {
-        // Moving to a deeper level, reward exploration
-        double depth_bonus = 5.0 * (1.0 - static_cast<double>(m_current_state.current_k) / m_num_rows);
-        reward += depth_bonus;
-    }
-    
-    // 4. Penalty: rho exceeds radius
-    if (m_current_state.current_rho > m_current_state.radius) {
-        double excess_ratio = (m_current_state.current_rho - m_current_state.radius) / m_current_state.radius;
-        reward -= 2.0 * excess_ratio;
-    }
-    
-    // 5. Penalty: step cost (encourage efficiency)
-    reward -= 0.05;
-    
-    // 6. Penalty: frequent backtracking
-    if (m_current_state.current_k > prev_k) {  // Need to record prev_k
-        // Backtracking occurred
-        reward -= 1.0;
-    }
-    
+
+    // 3. Per-step cost (encourage efficiency — fewer nodes visited is better)
+    reward -= 0.02;
+
     return reward;
 }
 bool RL_ENUM_Wrapper::check_termination() const {
-    // Check termination conditions
-    
-    // 1. Maximum steps reached (if set in config)
-    // if (m_total_steps >= max_steps) return true;
-    
-    // 2. Solution found and precision requirement met
-    if (m_has_solution) {
-        // If current best norm is small enough
-        if (m_current_state.best_norm < m_current_R * 0.01) {
-            return true;
-        }
+    // 1. Solution found and it is very short (GH bound approximation)
+    if (m_has_solution && m_current_state.best_norm < m_current_R * 0.01) {
+        return true;
     }
-    
-    // 3. Search space exhausted (when k == m_num_rows)
+
+    // 2. Search space exhausted (k has reached n)
     if (m_current_state.current_k >= m_num_rows) {
         return true;
     }
-    
-    // 4. rho consistently too large, indicating no solution in current region
-    if (m_current_state.current_rho > m_current_R * 00.0) {
-        // If rho is large for multiple consecutive steps, consider terminating
-        // Simplified: terminate on single overshoot (may need adjustment)
-        return true;
-    }
-    
-    // 5. Search stagnation: no progress for consecutive steps
-    // A counter can be added to track steps without progress
-    
+
+    // NOTE: Do NOT add a condition on current_rho here.
+    // After backtracking, current_rho at the parent level is always <= R (it was
+    // a valid node). A rho-based heuristic termination was previously written as
+    // "m_current_R * 00.0" which equals 0.0 and terminates on ANY nonzero rho —
+    // this was a bug that prevented any backtracking. The ENUM algorithm's natural
+    // termination (k >= n_rows) is sufficient.
+
     return false;
 }
 
@@ -213,8 +186,9 @@ std::tuple<double, bool, std::string> RL_ENUM_Wrapper::step(long action) {
     }
     
     m_total_steps++;
-    
-    // Record previous rho value to compute change
+
+    // Record previous k and rho BEFORE the step
+    prev_k = m_current_state.current_k;
     double prev_rho = m_current_state.current_rho;
     
     // Execute one step of core ENUM logic

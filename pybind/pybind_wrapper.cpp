@@ -5,6 +5,7 @@
 #include "../include/lattice.h"
 #include "RL_ENUM_Wrapper.h"
 #include "enum_state.h"
+#include <sstream>
 namespace py = pybind11;
 
 // Bind the Lattice<int> class (matching the original C++ code)

@@ -5,10 +5,13 @@ build_v2/
 
 # Compiled Python files
 __pycache__/
+**/__pycache__/
 *.pyc
 *.pyo
 
-# Shared libraries
+# Compiled binaries and shared libraries
+bin/
+lib/
 *.so
 *.a
 
@@ -18,3 +21,4 @@ CMakeFiles/
 cmake_install.cmake
 Makefile
 CTestTestfile.cmake
+Testing/

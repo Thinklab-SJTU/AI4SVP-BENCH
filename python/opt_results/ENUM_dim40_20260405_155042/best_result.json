@@ -1,0 +1,13 @@
+{
+  "algorithm": "ENUM",
+  "dimension": 40,
+  "seed": 0,
+  "timestamp": "2026-04-05T15:51:15.153217",
+  "best_params": {
+    "log_R": 15.169535658515379
+  },
+  "best_time": 0.3616464138031006,
+  "best_norm": 1709.173484465518,
+  "best_objective": 0.7,
+  "total_evaluations": 8
+}

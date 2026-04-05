@@ -329,7 +329,7 @@ def main():
     
     # Define dimensions to test
     # Note: ENUM algorithm is very slow at high dimensions, recommend starting with lower dimensions
-    test_dimensions = list(range(120, 121, 10))  # [10, 15, 20, 25, 30, 35, 40]
+    test_dimensions = list(range(40, 41, 10))  # [10, 15, 20, 25, 30, 35, 40]
     
     # If want to test more dimensions, adjust accordingly
     # test_dimensions = [10, 20, 30, 40]

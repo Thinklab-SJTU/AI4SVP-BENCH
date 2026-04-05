@@ -1,5 +1,17 @@
 import pandas as pd
 import numpy as np
+import warnings
+# Compatibility patch for pymoo which uses removed np.object/bool/int/float aliases
+with warnings.catch_warnings():
+    warnings.simplefilter("ignore", FutureWarning)
+    if not hasattr(np, 'object'):
+        np.object = object
+    if not hasattr(np, 'bool'):
+        np.bool = bool
+    if not hasattr(np, 'int'):
+        np.int = int
+    if not hasattr(np, 'float'):
+        np.float = float
 import time
 import sys
 import os
@@ -165,9 +177,10 @@ def _evaluate_worker(params_dict, dim, seed, algorithm, result_queue):
 
             if final_norm < 1e-10 or np.isnan(final_norm):
                 final_norm = float('inf')
-            
-            return time_taken, final_norm, initial_norm
-        
+
+            result_queue.put(('success', (time_taken, final_norm, initial_norm)))
+            return
+
         else:
             raise ValueError(f"Unsupported algorithm: {self.algorithm}")
         
@@ -372,26 +385,25 @@ class SVPHyperOptimizer:
             M = GSO.Mat(A)
             L = LLL.Reduction(M)
             L()
-            
+            M.update_gso()
+
             # Get initial norm
             initial_norm = np.linalg.norm([float(x) for x in A[0]])
-            
+
             # Start timing
             start_time = time.time()
-            
-            # Create BKZ 2.0 object and call it
-            bkz = BKZ2(A)
-            
-            # BKZ 2.0 parameters
+
+            # Create BKZ 2.0 object (must pass GSO.Mat, not IntegerMatrix)
+            bkz = BKZ2(M)
+
+            # BKZ 2.0 parameters (no strategies file required)
             beta = int(params_dict['beta'])
             params = BKZ.Param(
                 block_size=beta,
-                strategies=BKZ.DEFAULT_STRATEGY,
                 flags=BKZ.VERBOSE,
                 max_loops=5,
-                rerandomization_density=0
             )
-            
+
             # Directly call BKZReduction object
             bkz(params)
             
@@ -421,40 +433,23 @@ class SVPHyperOptimizer:
             M = GSO.Mat(A)
             L = LLL.Reduction(M)
             L()
-            
+            M.update_gso()
+
             # Get initial norm
             initial_norm = np.linalg.norm([float(x) for x in A[0]])
-            
+
             # Start timing
             start_time = time.time()
-            
-            # Self-Dual BKZ parameters
+
+            # Self-Dual BKZ using SD_VARIANT flag (fpylll 0.6+)
             beta = int(params_dict['beta'])
-            
-            try:
-                # Try with SD flag first
-                params = BKZ.Param(
-                    block_size=beta,
-                    strategies=BKZ.DEFAULT_STRATEGY,
-                    flags=BKZ.VERBOSE | BKZ.SD,
-                    max_loops=5,
-                    auto_abort=True
-                )
-                
-                # Use BKZ.reduction method
-                BKZ.reduction(A, params)
-                
-            except AttributeError:
-                # If BKZ.SD is not available, use alternative method
-                print(f"    BKZ.SD flag not available, using alternative method")
-                param = BKZ.EasyParam(
-                    block_size=beta,
-                    flags=BKZ.GH_BND,
-                    max_loops=5
-                )
-                
-                # Execute BKZ reduction
-                BKZ.reduction(A, param)
+            bkz = BKZ2(M)
+            params = BKZ.Param(
+                block_size=beta,
+                flags=BKZ.VERBOSE | BKZ.SD_VARIANT,
+                max_loops=5,
+            )
+            bkz(params)
             
             end_time = time.time()
             
@@ -1082,30 +1077,20 @@ Generated at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 
 # Example usage
 if __name__ == "__main__":
-    # Example 1: Optimize single algorithm
-    print("Example 1: Optimize eta parameter for L2 algorithm")
-    '''optimizer = SVPHyperOptimizer(
-        dim=40,
-        seed=9,
-        max_evaluations=40,
-        algorithm='potBKZ',
-        obj_weight={'time': 0.7, 'norm': 0.3},
-        timeout_seconds=200
-    )
-    best_params, best_obj = optimizer.optimize(n_suggestions=4)'''
-    '''optimizer = SVPHyperOptimizer(
-        dim=80,
-        seed=0,
-        max_evaluations=40,
-        algorithm='dualBKZ',
-        obj_weight={'time': 0.5, 'norm': 0.5},
-        timeout_seconds=200
-    )'''
-    #best_params, best_obj = optimizer.optimize(n_suggestions=4)
+    print("Test: fplll BKZ2.0 algorithm on dim=40, seed=0")
+    # optimizer = SVPHyperOptimizer(
+    #     dim=40,
+    #     seed=0,
+    #     max_evaluations=20,
+    #     algorithm='fplll_BKZ2.0',
+    #     obj_weight={'time': 0.3, 'norm': 0.7},
+    #     timeout_seconds=120
+    # )
+    # best_params, best_obj = optimizer.optimize(n_suggestions=4)
     # Example 2: Compare multiple algorithms
     print("\n\nExample 2: Compare optimized performance of multiple algorithms")
     compare_algorithms_with_opt(
-        dimensions=[80],
-        seed=0,
-        max_evals=40
+       dimensions=[40],
+       seed=0,
+       max_evals=40
     )
