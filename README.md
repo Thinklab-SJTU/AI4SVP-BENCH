@@ -39,6 +39,27 @@ ai4svp/
 
 ---
 
+## System Requirements
+
+### Hardware
+- **GPU**: NVIDIA A100-SXM4-80GB (CUDA compute capability 8.0) | Driver: 535.183.01
+- **VRAM**: 80 GB
+- **CPU**: Intel Xeon Platinum 8378A @ 3.00GHz | 128 cores (2 sockets × 32 cores × 2 threads) | 96 MB L3 cache
+- **RAM**: 1.0 TB (1024 GiB)
+- **Storage**: 300 GB overlay filesystem
+
+### Software & Versions
+| Component | Version | Notes |
+|-----------|---------|-------|
+| CUDA | 11.8+ | Bundled with torch==2.6.0 (cu118) |
+| cuDNN | 8.x | Auto-managed by PyTorch |
+| Python | 3.11 | Exact version in requirements.txt |
+| PyTorch | 2.6.0+cu118 | GPU acceleration for RL policy network |
+| fpylll | 0.6.4 | Lattice reduction backend; must be installed correctly with cysignals |
+| CMake | 3.10+ | For C++ pybind11 compilation |
+
+---
+
 ## 1. Environment Setup
 
 ### 1.1 Create Conda Environment
@@ -357,7 +378,150 @@ Pre-generated instances in `svp_challenge_list/svp_challenge_{dim}_{seed}.txt`:
 
 ---
 
-## 9. Quick-Start Commands
+## 9. Experimental Configuration
+
+### Overview
+Each AI-augmented solver has a `Config` class that controls training/evaluation behavior. This section documents the main hyperparameters and how to modify them.
+
+### AI4BKZ Configuration
+Located in `python/train_rl_bkz.py` (lines 29–42):
+
+```python
+class BKZConfig:
+    dimensions    = [40, 50]   # Train on both; generalizes to dim=60
+    num_seeds     = 5          # SVP challenge seed indices 0–4
+    max_tours     = 20         # Max BKZ reduction tours per episode
+    stagnation_tol = 1e-3      # Early stopping: halt if b1 improvement < 0.1%
+    time_penalty  = 0.5        # Reward penalty per elapsed second
+    
+    # PPO hyperparameters
+    gamma         = 0.99       # Discount factor
+    epsilon       = 0.2        # PPO clipping range
+    learning_rate = 3e-4       # Optimizer learning rate
+    batch_size    = 64         # Trajectories per PPO update
+    ppo_epochs    = 4          # PPO update epochs per batch
+    entropy_coeff = 0.02       # Entropy regularization (encourages exploration)
+```
+
+**Customization**:
+```bash
+# To train on only dim=40 (faster):
+# Edit train_rl_bkz.py line 30: dimensions = [40]
+
+# To use 100 episodes instead of 500:
+python train_rl_bkz.py --episodes 100
+
+# To use larger exploration:
+# Edit train_rl_bkz.py line 42: entropy_coeff = 0.05
+```
+
+**Action Space**: β ∈ {10, 15, 20, 25, 30, 35, 40} (7 discrete actions per tour)
+
+**Reward**: `(log(b1_prev / b1_curr)) * 10 - time_elapsed * time_penalty`
+- Dense signal: every tour produces a reward (no sparse-reward problem)
+- Dimensionless: log-scale norm change is comparable across dimensions
+
+---
+
+### AI4Enum Configuration
+Located in `python/train_rl_enum.py` (lines 30–43):
+
+```python
+class EnumConfig:
+    dimensions     = [40]              # Train on dim=40 only
+    num_seeds      = 5                 # SVP seeds 0–4
+    max_steps      = 3000              # RL steps per episode
+    search_radius_init = 3.6e8         # Curriculum: start large radius
+    search_radius_final = 4e6          # Curriculum: end small radius
+    curriculum_episodes = 400          # Episodes to decay R over
+    
+    gamma          = 0.99              # Discount factor
+    epsilon        = 0.2               # PPO clip range
+    learning_rate  = 1e-3              # Actor-critic learning rate
+    batch_size     = 32                # Trajectories per update
+    ppo_epochs     = 5                 # PPO epochs
+    entropy_coeff  = 0.01              # Lower than BKZ (sparser reward)
+```
+
+**Curriculum Learning**:
+- ENUM has sparse rewards (only when shortest vector found)
+- Radius R decays from 3.6×10⁸ → 4×10⁶ over 400 episodes
+- Early episodes: easy (large R) → dense rewards → quick learning
+- Late episodes: hard (small R) → challenge agent to refine
+
+**Evaluation**:
+```bash
+python test_rl_model.py \
+    --checkpoint checkpoints/rl_enum_ep500.pt \
+    --dims 40 \
+    --seeds 0 1 2 3 4 \
+    --radius 4e6 \
+    --max_steps 3000
+```
+
+---
+
+### Hyperparameter Optimization (HEBO)
+Located in `python/svp_hyperopt.py` (lines ~150–175):
+
+```python
+SVPHyperOptimizer(
+    dim=40,
+    seed=0,
+    max_evaluations=20,         # Number of BO iterations
+    algorithm='fplll_BKZ2.0',   # Algorithm to tune
+    obj_weight={'time': 0.3, 'norm': 0.7},  # Multi-objective: favor norm over time
+    timeout_seconds=120,        # Wall-clock timeout per evaluation
+)
+```
+
+**Supported Algorithms & Search Spaces**:
+
+| Algorithm | Tuned Parameter | Search Range |
+|-----------|-----------------|--------------|
+| LLL variants | `delta` | [0.5, 1.0] |
+| BKZ variants | `beta`, `delta` | β ∈ [2, dim], δ ∈ [0.5, 1.0] |
+| ENUM | `log_R` | [log(3e6), log(5e6)] |
+| fplll_BKZ2.0 | `beta` | [2, dim] |
+
+**Multi-objective Tuning**:
+- `obj_weight={'time': 0.3, 'norm': 0.7}` → prioritize norm quality (70%) over speed (30%)
+- Useful for PQC applications where vector quality matters more than time
+
+---
+
+### AI4Sieve Configuration
+Located in `sieve/config.py`:
+
+```python
+config = {
+    'gamma': 0.99,              # Reduction factor per iteration
+    'max_iterations': 50,       # Sieve loop iterations
+    'top_k': 10,                # Centers checked by AI model per vector (AI4Sieve)
+    'batch_size': 128,          # Mini-batch size for neural network inference
+}
+```
+
+**Modes**:
+- `--mode collect`: Generate training data (collect features & labels from NV sieve runs)
+- `--mode train`: Train center-matching neural network (outputs which centers to check)
+- `--mode test`: Run AI-enhanced sieve with trained model
+- `--mode all`: Full pipeline (collect → train → test)
+
+---
+
+### Known Limitations & Recommendations
+
+| Issue | Recommendation |
+|-------|-----------------| 
+| **Sparse ENUM rewards** | Use curriculum learning (R decay); increasing `entropy_coeff` can help exploration |
+| **Sieve memory usage** | Large dims (>100) require significant RAM; monitor with `free -h` |
+| **fpylll installation** | If build fails, ensure cysignals is installed: `pip install cysignals==1.12.5` |
+| **C++ compilation** | If CMake fails, check Python version matches 3.11: `python --version` |
+
+---
+
+## 10. Quick-Start Commands
 
 ```bash
 # ── Setup ──────────────────────────────────────────────────────────────
